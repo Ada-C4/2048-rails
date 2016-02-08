@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(version: 20160208232712) do
     t.string   "uid"
     t.string   "provider"
     t.string   "avatar_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end
