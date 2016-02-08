@@ -4,14 +4,13 @@ class SessionsController < ApplicationController
     if auth_hash["uid"].nil?
       flash[:notice] = "Failed to authenticate"
     else
-      # @user = User.find_or_create_from_omniauth(auth_hash)
-      # if @user
-      #   session[:user_id] = @user.id
-      # else
-      #   flash[:notice] = "Failed to save the user"
-      # end
-      @current_user = 1;
-      session[:user_id] = 1;
+      @user = User.find_or_create_from_omniauth(auth_hash)
+      binding.pry
+      if @user
+        session[:user_id] = @user.id
+      else
+        flash[:notice] = "Failed to save the user"
+      end
     end
     redirect_to root_path
   end

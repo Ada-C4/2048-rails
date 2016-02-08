@@ -5,10 +5,9 @@ class ApplicationController < ActionController::Base
   before_action :current_user
 
   def current_user
-    # if session[:user_id] && !!User.exists?(session[:user_id])
-    #   @current_user ||= User.find(session[:user_id])
-    # end
-  #  @current_user ||= 1;
+    if session[:user_id] && !!User.exists?(session[:user_id])
+      @current_user ||= User.find(session[:user_id])
+    end
   end
 
 end
