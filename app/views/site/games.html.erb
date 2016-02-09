@@ -2,6 +2,6 @@
 
 <div class="game-list">
   <% @games.each do |game| %>
-    <h1>Game <%= game.id %> - score: <%= game.score %></h1>
+    <%= link_to "Game", "/games/#{game.id}" %>
   <% end %>
 </div>

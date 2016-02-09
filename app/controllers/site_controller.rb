@@ -4,6 +4,9 @@ class SiteController < ApplicationController
     if current_user
       @username = current_user.name
     end
+    if params[:id]
+      
+    end
   end
 
   def games
