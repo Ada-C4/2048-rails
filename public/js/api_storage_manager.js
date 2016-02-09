@@ -53,22 +53,22 @@ ApiStorageManager.prototype.getGameState = function () {
   var stateJSON = this.storage.getItem(this.gameStateKey);
 
   //url = "/create_game";
-  console.log("Hitting the right part of code");
-  $.ajax({
-    method: "GET",
-    url: "/games/get_user",
-  })
-  .done(function(data) {
-    console.log(data);
-    $.ajax({
-      method: "POST",
-      url: "/users/" + data.id + "/create_game",
-      data: { state: stateJSON}
-    })
-    .done(function(response) {
-      console.log(response);
-    });
-  });
+  // console.log("Hitting the right part of code");
+  // $.ajax({
+  //   method: "GET",
+  //   url: "/games/get_user",
+  // })
+  // .done(function(data) {
+  //   console.log(data);
+  //   $.ajax({
+  //     method: "POST",
+  //     url: "/users/" + data.id + "/create_game",
+  //     data: { state: stateJSON}
+  //   })
+  //   .done(function(response) {
+  //     console.log(response);
+  //   });
+  // });
 
   //console.log(user)
 
@@ -80,7 +80,7 @@ ApiStorageManager.prototype.getGameState = function () {
   // .done(function() {
     // console.log("Hey!");
   // });
-// 
+//
   // var stateJSON = this.storage.getItem(this.gameStateKey);
   return stateJSON ? JSON.parse(stateJSON) : null;
 };
