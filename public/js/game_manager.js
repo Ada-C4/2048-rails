@@ -21,7 +21,7 @@ GameManager.prototype.save = function () {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     }
   });
-  
+
   // access API to save game somehow
   $(document).ready(function(){
   // var url = "https://localhost:3000/save";
@@ -30,7 +30,7 @@ GameManager.prototype.save = function () {
   $.ajax({
     method: "POST",
     url: "/save",
-    data: {score: '2048'}
+    data: {score: '2048', board_state: "hello", lost: "false"}
   })
     .done(function(msg) {
       console.log("DONE!");
