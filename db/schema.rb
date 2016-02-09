@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20160209192034) do
     t.boolean  "over"
     t.boolean  "won"
     t.boolean  "keepplaying"
-    t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

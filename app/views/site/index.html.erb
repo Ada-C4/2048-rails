@@ -1,9 +1,1 @@
-<header class="container-fluid user-info-holder">
-  <% if @current_user %>
-    <h1><%= current_user.username %></h1>
-    <%= link_to "Log out", logout_path, method: :delete, class: "btn btn-info" %>
-  <% else %>
-    <%= link_to "Login with Github", "/auth/github", class: "btn btn-info" %>
-  <% end %>
-</header>
 <%= render file: "public/game.html" %>
