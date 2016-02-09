@@ -44,14 +44,6 @@ GameManager.prototype.setup = function () {
     this.won         = previousState.won;
     this.keepPlaying = previousState.keepPlaying;
   } else {
-    url = "/games_api";
-    $.ajax(url, {
-      type: "POST"
-    })
-    .done(function(this) {
-
-    });
-    
     this.grid        = new Grid(this.size);
     this.score       = 0;
     this.over        = false;
@@ -60,6 +52,20 @@ GameManager.prototype.setup = function () {
 
     // Add the initial tiles
     this.addStartTiles();
+
+    // url = "/create_game";
+    // console.log("Hitting the right part of code")
+    // $.ajax(url, {
+    //   type: "POST"
+    // })
+    // .done(function() {
+    //   console.log("Hey!");
+    // });
+    $.ajax({
+        type: "POST",
+        url:"/create_game",
+        data: {state: "this is working"},
+      });
   }
 
   // Update the actuator
