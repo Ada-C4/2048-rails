@@ -29,7 +29,7 @@ GameManager.prototype.save = function () {
   .done(function(data) {
     console.log("DONE!");
     console.log(data);
-    $(clubDiv).addClass('chosen');
+    //maybe add some html to notify user of saving
   })
   .fail(function(data){
     console.log("FAIL");
