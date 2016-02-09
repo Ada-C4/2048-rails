@@ -4,22 +4,25 @@ class SessionsController < ApplicationController
   end
 
   def create
-    data = params[:session_data]
-    @user= User.find_by_username(data[:username])
-    if !@user.nil? && @user.authenticate(data[:password])
-      session[:user_id] = @user.id
-      flash[:success] = "You are now logged in."
-      redirect_to root_path
+    auth_hash = request.env['omniauth.auth']
+    if auth_hash["uid"]
+      @user = User.find_or_create_from_omniauth(auth_hash)
+        if !@user.nil?
+          session[:user_id] = @user.id
+          flash[:notice] = nil
+        else
+          flash[:notice] = "Failed to save the user"
+        end
     else
-      flash.now[:error] = "Invalid username and password combination."
-      render :new
+      flash[:notice] = "Failed to authenticate"
     end
+    redirect_to root_path
   end
 
   def destroy
-    @current_user = nil
-    session[:user_id] = nil
-    flash[:success] = "You are now logged out."
+    session[:user_id] = nil if session[:user_id]
+    flash[:notice] = "You have been logged out."
     redirect_to root_path
   end
+
 end
