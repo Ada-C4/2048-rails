@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   get "/auth/:provider/callback" => 'sessions#create', as: :auth
+  resources :games, except: :new
 end

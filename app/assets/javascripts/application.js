@@ -15,4 +15,8 @@
 //= require jquery_ujs
 //= require_tree .
 
-console.log(this.storageManager.getGameState())
+// $.ajaxSetup({
+//     headers: {
+//       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+//     }
+//   });

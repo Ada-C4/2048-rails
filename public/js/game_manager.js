@@ -20,6 +20,22 @@ GameManager.prototype.restart = function () {
   this.setup();
 };
 
+//method added by AD
+GameManager.prototype.save = function () {
+  var url = "/"
+  $.ajax(url, {
+  type: "POST",
+})
+  .done(function(data) {
+    console.log("DONE!");
+    console.log(data);
+    $(clubDiv).addClass('chosen');
+  })
+  .fail(function(data){
+    console.log("FAIL");
+  });
+};
+
 //Continue saved game? -AD
 GameManager.prototype.loadGame = function () {
   this.storageManager.clearGameState();
