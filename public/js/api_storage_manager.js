@@ -50,18 +50,20 @@ ApiStorageManager.prototype.setBestScore = function (score) {
 
 // Game state getters/setters and clearing
 ApiStorageManager.prototype.getGameState = function () {
+  var stateJSON = this.storage.getItem(this.gameStateKey);
+
   url = "/users/1/create_game";
   console.log("Hitting the right part of code");
   $.ajax({
     method: "POST",
     url: "/users/1/create_game",
-    data: { state: "This is a test"}
+    data: { state: stateJSON}
   })
   .done(function() {
     console.log("Hey!");
   });
 
-  var stateJSON = this.storage.getItem(this.gameStateKey);
+  //var stateJSON = this.storage.getItem(this.gameStateKey);
   return stateJSON ? JSON.parse(stateJSON) : null;
 };
 
