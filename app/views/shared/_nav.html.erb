@@ -18,11 +18,11 @@
             <ul class="dropdown-menu">
               <li><a href="#"><%= current_user.username.split(' ')[0].titlecase %>'s Games</a></li>
               <li role="separator" class="divider"></li>
-              <li><%= link_to "Logout", logout_path, id: "sign_out" %></li>
+              <li><%= link_to "Logout", logout_path, method: :delete %></li>
             </ul>
           </li>
         <% else %>
-          <li><%= link_to "Sign in with Github", "/auth/github", id: "sign_in" %></li>
+          <li><%= link_to "Sign in with Github", "/auth/github" %></li>
         <% end %>
       </ul>
     </div>
