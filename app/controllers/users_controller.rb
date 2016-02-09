@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     current_user
-    @games = @current_user.games
+    @games = Game.where(user_id: @current_user.id)
   end
 
   # def games_api
