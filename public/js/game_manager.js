@@ -17,6 +17,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 // Save the game
 GameManager.prototype.save = function () {
   // access API to save game somehow
+  
 };
 
 // Restart the game
