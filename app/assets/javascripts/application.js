@@ -14,3 +14,21 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require_tree .
+$(document).ready(function() {
+  $('#save').click(function() {
+    var url = "/save";
+    $.ajax(url, {
+      type: "POST"
+    })
+      .done(function(data) {
+        console.log(data);
+        console.log("GAME SAVED");
+      })
+      .fail(function() {
+        console.log("FAILED TO SAVE");
+      })
+      .always(function() {
+        console.log("I always do this");
+      });
+  });
+});
