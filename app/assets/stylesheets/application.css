@@ -22,6 +22,12 @@
      background-color: #333;
  }
 
+ li a {
+     color: white;
+     text-align: center;
+     text-decoration: none;
+ }
+
 .right {
    float: right;
  }
@@ -35,11 +41,11 @@
      text-decoration: none;
  }
 
- a {
-     color: white;
-     text-align: center;
-     text-decoration: none;
- }
+
  li:hover {
      background-color: #111;
+ }
+
+ body {
+   margin: 0 !important;
  }
