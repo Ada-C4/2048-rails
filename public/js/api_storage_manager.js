@@ -52,16 +52,26 @@ ApiStorageManager.prototype.setBestScore = function (score) {
 ApiStorageManager.prototype.getGameState = function () {
   var stateJSON = this.storage.getItem(this.gameStateKey);
 
-  url = "/create_game";
+  //url = "/create_game";
   console.log("Hitting the right part of code");
   $.ajax({
-    method: "POST",
-    url: "/create_game",
-    data: { state: stateJSON}
+    method: "GET",
+    url: "/users/get_user",
   })
   .done(function() {
-    console.log("Hey!");
+    console.log(this);
   });
+
+  //console.log(user)
+
+  // $.ajax({
+  //   method: "POST",
+  //   url: "/users/" + user + "/create_game",
+  //   data: { state: stateJSON}
+  // })
+  // .done(function() {
+  //   console.log("Hey!");
+  // });
 
   //var stateJSON = this.storage.getItem(this.gameStateKey);
   return stateJSON ? JSON.parse(stateJSON) : null;

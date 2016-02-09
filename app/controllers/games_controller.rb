@@ -3,6 +3,10 @@ class GamesController < ApplicationController
   respond_to :html, :js
   skip_before_action :verify_authenticity_token
 
+  def get_user
+    @current_user = current_user
+  end
+
   def retrieve_game
     respond_to do |format|
       format.json do
