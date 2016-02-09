@@ -21,27 +21,25 @@ GameManager.prototype.save = function () {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     }
   });
-
+//to access 'this' inside of ajax/jquery stuff:
+  var self = this;
   // access API to save game somehow
   $(document).ready(function(){
-  // var url = "https://localhost:3000/save";
-  // var data = {score: '2048'};
-
-  $.ajax({
-    method: "POST",
-    url: "/save",
-    data: {score: '2048', board_state: "hello", lost: "false"}
-  })
-    .done(function(msg) {
-      console.log("DONE!");
-      console.log(msg);
+    $.ajax({
+      method: "POST",
+      url: "/save",
+      data: {score: self.score, board_state: self.storageManager.getGameState(), lost: "false"}
     })
-    .fail(function(){
-      console.log("fail");
-    })
-    .always(function(){
-      console.log("always");
-    });
+      .done(function(msg) {
+        console.log("DONE!");
+        console.log(msg);
+      })
+      .fail(function(){
+        console.log("fail");
+      })
+      .always(function(){
+        console.log("always");
+      });
   });
 };
 
