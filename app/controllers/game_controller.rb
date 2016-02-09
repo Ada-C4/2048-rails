@@ -6,5 +6,6 @@ class GameController < ApplicationController
     game.score = 2048 #something we get from JS
     game.board_state = "" #some kind of sting
     game.lost = false
+    render :json => [], :status => :ok
   end
 end

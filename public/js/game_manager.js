@@ -16,6 +16,12 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
 // Save the game
 GameManager.prototype.save = function () {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  
   // access API to save game somehow
   $(document).ready(function(){
   // var url = "https://localhost:3000/save";
@@ -23,7 +29,7 @@ GameManager.prototype.save = function () {
 
   $.ajax({
     method: "POST",
-    url: "https://localhost:3000/save",
+    url: "/save",
     data: {score: '2048'}
   })
     .done(function(msg) {
