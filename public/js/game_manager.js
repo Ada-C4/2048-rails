@@ -26,8 +26,8 @@ GameManager.prototype.save = function () {
     var stateOfGame = this.storageManager.getGameState();
     $.ajax({
     type: "POST",
-    url: "/games",
-    data: {gamestate: stateOfGame},
+    url: "/games/save",
+    data: stateOfGame,
     success: function () {
       console.log(data);
     }
