@@ -17,7 +17,26 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 // Save the game
 GameManager.prototype.save = function () {
   // access API to save game somehow
-  
+  $(document).ready(function(){
+  // var url = "https://localhost:3000/save";
+  // var data = {score: '2048'};
+
+  $.ajax({
+    method: "POST",
+    url: "https://localhost:3000/save",
+    data: {score: '2048'}
+  })
+    .done(function(msg) {
+      console.log("DONE!");
+      console.log(msg);
+    })
+    .fail(function(){
+      console.log("fail");
+    })
+    .always(function(){
+      console.log("always");
+    });
+  });
 };
 
 // Restart the game
