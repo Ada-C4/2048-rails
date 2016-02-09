@@ -3,8 +3,9 @@ class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def show
-    current_user
-    @games = Game.where(user_id: @current_user.id)
+    @user = params[:id]
+    @games = Game.where(user_id: @user)
+
   end
 
   # def games_api

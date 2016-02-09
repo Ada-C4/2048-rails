@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
         flash[:notice] = "Failed to save the user"
       end
     end
-    redirect_to root_path
+    redirect_to user_show_path(@user.id)
   end
 
   def destroy

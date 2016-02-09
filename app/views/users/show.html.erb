@@ -1,5 +1,7 @@
 <ul>
   <% @games.each do |game| %>
-  <li><%= game.state %></li>
+  <li><%= game.state %>, created at <%= game.created_at %></li>
   <% end %>
 </ul>
+
+<%= link_to "New Game", game_home_path(@user) %>

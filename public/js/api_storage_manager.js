@@ -52,11 +52,11 @@ ApiStorageManager.prototype.setBestScore = function (score) {
 ApiStorageManager.prototype.getGameState = function () {
   var stateJSON = this.storage.getItem(this.gameStateKey);
 
-  url = "/users/1/create_game";
+  url = "/create_game";
   console.log("Hitting the right part of code");
   $.ajax({
     method: "POST",
-    url: "/users/1/create_game",
+    url: "/create_game",
     data: { state: stateJSON}
   })
   .done(function() {
