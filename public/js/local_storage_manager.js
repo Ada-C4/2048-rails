@@ -55,6 +55,12 @@ LocalStorageManager.prototype.getGameState = function () {
 };
 
 LocalStorageManager.prototype.setGameState = function (gameState) {
+  url = "/games_api?id=1";
+  $.ajax(url, {
+  })
+  .done(function(data) {
+
+  });
   this.storage.setItem(this.gameStateKey, JSON.stringify(gameState));
 };
 

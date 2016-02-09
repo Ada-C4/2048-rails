@@ -44,6 +44,14 @@ GameManager.prototype.setup = function () {
     this.won         = previousState.won;
     this.keepPlaying = previousState.keepPlaying;
   } else {
+    url = "/games_api";
+    $.ajax(url, {
+      type: "POST"
+    })
+    .done(function(this) {
+
+    });
+    
     this.grid        = new Grid(this.size);
     this.score       = 0;
     this.over        = false;
