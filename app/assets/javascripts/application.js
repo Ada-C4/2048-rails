@@ -15,8 +15,17 @@
 //= require jquery_ujs
 //= require_tree .
 $(document).ready(function() {
-  $('#save').click(function() {
+  $('#save').click(function(event) {
+    event.preventDefault();
+
     var url = "/save";
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
     $.ajax(url, {
       type: "POST"
     })
