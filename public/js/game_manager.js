@@ -24,7 +24,7 @@ GameManager.prototype.save = function () {
 //to access 'this' inside of ajax/jquery stuff:
   var self = this;
   // access API to save game somehow
-  $(document).ready(function(){
+  // $(document).ready(function(){
     $.ajax({
       method: "POST",
       url: "/save",
@@ -40,7 +40,7 @@ GameManager.prototype.save = function () {
       .always(function(){
         console.log("always");
       });
-  });
+  // });
 };
 
 // Restart the game

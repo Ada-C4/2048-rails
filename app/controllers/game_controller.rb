@@ -6,6 +6,7 @@ class GameController < ApplicationController
     game.score = params[:score] #something we get from JS
     game.board_state = params[:board_state] #some kind of string
     game.lost = params[:lost]
+    game.user_id = current_user.id
     game.save
     render :json => [], :status => :ok
   end
