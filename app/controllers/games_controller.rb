@@ -16,11 +16,11 @@ class GamesController < ApplicationController
   def create_game
     respond_to do |format|
       format.json do
-        # user_id = 1
+        # user_id = params[:UserId]
         state = params[:state]
         game = Game.new
         game.state = state
-        # game.user_id = 1
+        game.user_id = @current_user.id
         game.save
         render json: game
       end
