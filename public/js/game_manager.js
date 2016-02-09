@@ -8,6 +8,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
+  this.inputManager.on("save", this.save.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
   this.setup();
@@ -22,17 +23,14 @@ GameManager.prototype.restart = function () {
 
 //method added by AD
 GameManager.prototype.save = function () {
-  var url = "/"
-  $.ajax(url, {
-  type: "POST",
-})
-  .done(function(data) {
-    console.log("DONE!");
-    console.log(data);
-    //maybe add some html to notify user of saving
-  })
-  .fail(function(data){
-    console.log("FAIL");
+    var stateOfGame = this.storageManager.getGameState();
+    $.ajax({
+    type: "POST",
+    url: "/games",
+    data: {gamestate: stateOfGame},
+    success: function () {
+      console.log(data);
+    }
   });
 };
 
