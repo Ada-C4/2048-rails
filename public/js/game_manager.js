@@ -8,6 +8,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
+  this.inputManager.on("save", this.save.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
   this.setup();
@@ -18,6 +19,19 @@ GameManager.prototype.restart = function () {
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
   this.setup();
+};
+
+//method added by AD
+GameManager.prototype.save = function () {
+    var stateOfGame = this.storageManager.getGameState();
+    $.ajax({
+    type: "POST",
+    url: "/games/save",
+    data: stateOfGame,
+    success: function () {
+      console.log(data);
+    }
+  });
 };
 
 //Continue saved game? -AD

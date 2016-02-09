@@ -14,5 +14,3 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require_tree .
-
-console.log(this.storageManager.getGameState())

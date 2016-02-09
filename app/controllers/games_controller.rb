@@ -1,9 +1,16 @@
 class GamesController < ApplicationController
 
-  def create
-    @game = Game.new(game_params)
+  def save
+    binding.pry
+    @game = Game.new(
+    gamestate: params,
+    score: params["score"],
+    over: params["over"],
+    won: params["won"],
+    keepplaying: params["keepPlaying"])
     @game.save
     @current_user.games << @game
+    render json: [], status: 200
   end
 
   def update
@@ -13,13 +20,6 @@ class GamesController < ApplicationController
 
   def destroy
     @game.destroy
-  end
-
-
-  private
-
-  def game_params
-    params.permit(game:[:gamestate, :score, :over, :won, :keepplaying])
   end
 
 end
