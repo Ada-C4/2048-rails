@@ -23,15 +23,20 @@ GameManager.prototype.restart = function () {
 
 //method added by AD
 GameManager.prototype.save = function () {
-    var stateOfGame = this.storageManager.getGameState();
+    var stateOfGame = this.storageManager.storage.gameState;
+    var url = "http://localhost:3000/games/save"
+    
     $.ajax({
-    type: "POST",
-    url: "/games/save",
-    data: stateOfGame,
-    success: function () {
-      console.log(data);
-    }
-  });
+      method: "POST",
+      url: url,
+      data: stateOfGame
+    })
+      .done(function() {
+        console.log("success");
+      })
+      .fail(function() {
+        console.log("failure");
+      });
 };
 
 //Continue saved game? -AD
