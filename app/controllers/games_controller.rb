@@ -1,24 +1,30 @@
 class GamesController < ApplicationController
   before_action :all_games, only: [:index, :create]
   respond_to :html, :js
+  skip_before_action :verify_authenticity_token
 
-  # index action has been removed
-  # 
-  # def new
-  #   @game = Game.new
-  # end
-  #
-  # def create
-  #   @game  = Game.create(game_params)
-  # end
-  #
-  # private
-  #
-  #   def all_tasks
-  #     @games = Game.all
-  #   end
-  #
-  #   def game_params
-  #     params.require(:game).permit(:user_id, :state)
-  #   end
+  def retrieve_game
+    respond_to do |format|
+      format.json do
+        id = params[:id]
+        @result = Game.find(id)
+        render json: @result
+      end
+    end
+  end
+
+  def create_game
+    respond_to do |format|
+      format.json do
+        user_id = params[:user_id]
+        state = params[:state]
+        game = Game.new
+        game.state = state
+        game.user_id = user_id
+        game.save
+        render json: game
+      end
+    end
+  end
+
 end
