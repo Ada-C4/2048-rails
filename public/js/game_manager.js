@@ -34,7 +34,6 @@ GameManager.prototype.isGameTerminated = function () {
 // Set up the game
 GameManager.prototype.setup = function () {
   var previousState = this.storageManager.getGameState();
-
   // Reload the game from a previous game if present
   if (previousState) {
     this.grid        = new Grid(previousState.grid.size,
@@ -52,20 +51,21 @@ GameManager.prototype.setup = function () {
 
     // Add the initial tiles
     this.addStartTiles();
+    console.log(this.grid);
 
-    // url = "/create_game";
-    // console.log("Hitting the right part of code")
-    // $.ajax(url, {
-    //   type: "POST"
-    // })
-    // .done(function() {
-    //   console.log("Hey!");
-    // });
-    $.ajax({
-        type: "POST",
-        url:"/create_game",
-        data: {state: "this is working"},
-      });
+    url = "/users/1/create_game";
+    console.log("Hitting the right part of code");
+    $.ajax(url, {
+      type: "POST"
+    })
+    .done(function() {
+      console.log("Hey!");
+    });
+    // $.ajax({
+    //     type: "POST",
+    //     url:"/create_game",
+    //     data: {state: "this is working"},
+    //   });
   }
 
   // Update the actuator

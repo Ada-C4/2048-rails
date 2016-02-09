@@ -30,8 +30,9 @@
 
     <div class="above-game">
       <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
-      <%= link_to "New Game", "users#create_game", method: "POST" %>
+      <%= link_to 'New Game', remote: true %>
       <a class="restart-button">New Game</a>
+      <div id="game-form" style="display:none;"></div>
     </div>
 
     <div class="game-container">
