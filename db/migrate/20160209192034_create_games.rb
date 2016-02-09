@@ -6,6 +6,7 @@ class CreateGames < ActiveRecord::Migration
       t.boolean :over
       t.boolean :won
       t.boolean :keepplaying
+      t.integer :user_id
 
       t.timestamps null: false
     end
