@@ -2,7 +2,6 @@ class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def save
-    # binding.pry
     @game = Game.new(
       gamestate: params,
       score: params["score"],
