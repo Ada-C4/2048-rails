@@ -20,7 +20,4 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.create_from_omniauth(auth_hash)
-    # Create a user
-  end
 end
