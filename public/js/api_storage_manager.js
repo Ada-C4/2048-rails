@@ -56,24 +56,32 @@ ApiStorageManager.prototype.getGameState = function () {
   console.log("Hitting the right part of code");
   $.ajax({
     method: "GET",
-    url: "/users/get_user",
+    url: "/games/get_user",
   })
-  .done(function() {
-    console.log(this);
+  .done(function(data) {
+    console.log(data);
+    $.ajax({
+      method: "POST",
+      url: "/users/" + data.id + "/create_game",
+      data: { state: stateJSON}
+    })
+    .done(function(response) {
+      console.log(response);
+    });
   });
 
   //console.log(user)
 
   // $.ajax({
-  //   method: "POST",
-  //   url: "/users/" + user + "/create_game",
-  //   data: { state: stateJSON}
+    // method: "POST",
+    // url: "/users/" + user + "/create_game",
+    // data: { state: stateJSON}
   // })
   // .done(function() {
-  //   console.log("Hey!");
+    // console.log("Hey!");
   // });
-
-  //var stateJSON = this.storage.getItem(this.gameStateKey);
+// 
+  // var stateJSON = this.storage.getItem(this.gameStateKey);
   return stateJSON ? JSON.parse(stateJSON) : null;
 };
 
