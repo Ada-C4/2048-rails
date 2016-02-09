@@ -20,6 +20,13 @@ GameManager.prototype.restart = function () {
   this.setup();
 };
 
+//Continue saved game? -AD
+GameManager.prototype.loadGame = function () {
+  this.storageManager.clearGameState();
+  this.actuator.continueGame(); // Clear the game won/lost message
+  this.setup();
+};
+
 // Keep playing after winning (allows going over 2048)
 GameManager.prototype.keepPlaying = function () {
   this.keepPlaying = true;
