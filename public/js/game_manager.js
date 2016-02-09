@@ -53,14 +53,7 @@ GameManager.prototype.setup = function () {
     this.addStartTiles();
     console.log(this.grid);
 
-    url = "/users/1/create_game";
-    console.log("Hitting the right part of code");
-    $.ajax(url, {
-      type: "POST"
-    })
-    .done(function() {
-      console.log("Hey!");
-    });
+
     // $.ajax({
     //     type: "POST",
     //     url:"/create_game",

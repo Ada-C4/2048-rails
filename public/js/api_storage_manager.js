@@ -22,13 +22,13 @@ function ApiStorageManager() {
   this.bestScoreKey     = "bestScore";
   this.gameStateKey     = "gameState";
 
-  var supported = this.apiStorageSupported();
-  this.storage = supported ? window.apiStorage : window.fakeStorage;
+  var supported = this.localStorageSupported();
+  this.storage = supported ? window.localStorage : window.fakeStorage;
 }
 
-ApiStorageManager.prototype.apiStorageSupported = function () {
+ApiStorageManager.prototype.localStorageSupported = function () {
   var testKey = "test";
-  var storage = window.apiStorage;
+  var storage = window.localStorage;
 
   try {
     storage.setItem(testKey, "1");
@@ -50,6 +50,17 @@ ApiStorageManager.prototype.setBestScore = function (score) {
 
 // Game state getters/setters and clearing
 ApiStorageManager.prototype.getGameState = function () {
+  url = "/users/1/create_game";
+  console.log("Hitting the right part of code");
+  $.ajax({
+    method: "POST",
+    url: "/users/1/create_game",
+    data: { state: "This is a test"}
+  })
+  .done(function() {
+    console.log("Hey!");
+  });
+
   var stateJSON = this.storage.getItem(this.gameStateKey);
   return stateJSON ? JSON.parse(stateJSON) : null;
 };
