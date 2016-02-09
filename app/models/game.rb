@@ -8,4 +8,11 @@ class Game < ActiveRecord::Base
 
 
 
+  private
+
+  def game_params
+    params.permit(game:[:gamestate, :score, :over, :won, :keepplaying])
+  end
+
+
 end

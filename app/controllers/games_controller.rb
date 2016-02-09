@@ -1,2 +1,13 @@
 class GamesController < ApplicationController
+
+
+  
+
+
+
+
+
+
+
+
 end
