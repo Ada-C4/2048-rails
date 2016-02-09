@@ -1,4 +1,8 @@
 <header class="container-fluid user-info-holder">
-  <h1><%= current_user.username %></h1>
+  <% if @current_user %>
+    <h1><%= current_user.username %></h1>
+  <% else %>
+    <%= link_to "Login with Github", "/auth/github", class: "btn btn-info login-button" %>
+  <% end %>
 </header>
 <%= render file: "public/game.html" %>
