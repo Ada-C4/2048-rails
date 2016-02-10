@@ -15,7 +15,13 @@ function GameManager(size, InputManager, Actuator, StorageManager, game) {
 
 // Restart the game
 GameManager.prototype.restart = function () {
-  this.storageManager.clearGameState();
+  var self = this;
+  this.storageManager.clearGameState()
+    .done(function(newGame) {
+      console.log(newGame);
+      self.storageManager.gameID = newGame.id;
+      console.log(self.storageManager.gameID);
+    });
   this.actuator.continueGame(); // Clear the game won/lost message
   this.setup();
 };
