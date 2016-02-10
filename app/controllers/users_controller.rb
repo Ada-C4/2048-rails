@@ -19,7 +19,8 @@ class UsersController < ApplicationController
       flash[:error] = "You are not authorized to view this section."
       redirect_to root_path
     else
-      @games = user.games
+      @active_games = user.games.where(completed: false)
+      @completed_games = user.games.where(completed: true)
     end
   end
 end

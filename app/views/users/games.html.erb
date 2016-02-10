@@ -12,10 +12,10 @@
       </tr>
     </thead>
     <tbody>
-      <% @games.each do |game| %>
+      <% @active_games.each do |game| %>
         <tr>
-          <td>Some date</td>
-          <td>100</td>
+          <td><%= time_ago_in_words(game.updated_at) %> ago</td>
+          <td><%= game.score ? game.score : "0" %></td>
           <td>Load!</td>
         </tr>
       <% end %>
@@ -26,17 +26,17 @@
   <table class="table">
     <thead>
       <tr>
-        <td>Last played</td>
+        <td>Time Completed</td>
         <td>Score</td>
         <td>Won?</td>
       </tr>
     </thead>
     <tbody>
-      <% @games.each do |game| %>
+      <% @completed_games.each do |game| %>
         <tr>
-          <td>Last played</td>
-          <td>100</td>
-          <td>Yes :)</td>
+          <td><%= time_ago_in_words(game.updated_at) %> ago</td>
+          <td><%= game.score ? game.score : "0" %></td>
+          <td><%= game.won == true ? "yes!" : "no :(" %></td>
         </tr>
       <% end %>
     </tbody>
