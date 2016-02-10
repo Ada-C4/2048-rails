@@ -49,8 +49,14 @@ GameManager.prototype.setup = function(gameState) {
       for (i=0; i < response.length; i++) {
         $("#game-list").append("<li><a class='load_game_button' data-id='"+ response[i].id + "' href='javascript:void(0)'>" + response[i].created_at + "</a></li>");
       }
+      $(".load_game_button").click(function(){
+        // needs game id, and call setup(state)
+        var datathing = this.attributes[1].value;
+      });
     });
   });
+
+
   if (gameState) {
     var previousState = gameState
   } else {

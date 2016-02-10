@@ -1,11 +1,6 @@
 // Wait till the browser is ready to render the game (avoids glitches)
 window.requestAnimationFrame(function () {
   var game = new GameManager(4, KeyboardInputManager, HTMLActuator, ApiStorageManager);
-  $(".load_game_button").click(function(){
-    // needs game id, and call setup(state)
-    var datathing = this.attr();
-    console.log(datathing);
-  });
 
 
   $("#save-button").click(function() {
@@ -36,4 +31,11 @@ window.requestAnimationFrame(function () {
     });
 
   });
+
+  // $(".load_game_button").click(function(){
+  //   // needs game id, and call setup(state)
+  //   var datathing = this.attr();
+  //   console.log(datathing);
+  // });
+
 });
