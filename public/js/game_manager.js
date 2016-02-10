@@ -33,29 +33,33 @@ GameManager.prototype.isGameTerminated = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
-  var previousState = this.storageManager.getGameState();
+  var self = this;
+  this.storageManager.getGameState()
+    .done(function(previousState) {
+    console.log(previousState);
+    console.log("GAME STATE GOT");
+    // Reload the game from a previous game if present
+    if (previousState) {
+      self.grid        = new Grid(previousState.grid.size,
+                                  previousState.grid.cells); // Reload grid
+      self.score       = previousState.score;
+      self.over        = previousState.over;
+      self.won         = previousState.won;
+      self.keepPlaying = previousState.keepPlaying;
+    } else {
+      self.grid        = new Grid(self.size);
+      self.score       = 0;
+      self.over        = false;
+      self.won         = false;
+      self.keepPlaying = false;
 
-  // Reload the game from a previous game if present
-  if (previousState) {
-    this.grid        = new Grid(previousState.grid.size,
-                                previousState.grid.cells); // Reload grid
-    this.score       = previousState.score;
-    this.over        = previousState.over;
-    this.won         = previousState.won;
-    this.keepPlaying = previousState.keepPlaying;
-  } else {
-    this.grid        = new Grid(this.size);
-    this.score       = 0;
-    this.over        = false;
-    this.won         = false;
-    this.keepPlaying = false;
+      // Add the initial tiles
+      self.addStartTiles();
+    }
 
-    // Add the initial tiles
-    this.addStartTiles();
-  }
-
-  // Update the actuator
-  this.actuate();
+    // Update the actuator
+    self.actuate();
+  });
 };
 
 // Set up the initial tiles to start the game with
