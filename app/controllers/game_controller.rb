@@ -21,6 +21,13 @@ class GameController < ApplicationController
 	  render :json => game
 	end
 
+	# load a saved game
+	def load
+		game = Game.find(params[:id])
+		render :json =>  { gamestate: game.gamestate, status: :ok }
+	end
+
 	#delete an ongoing game
+
 
 end
