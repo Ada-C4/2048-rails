@@ -9,6 +9,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("save", this.save.bind(this));
+  this.inputManager.on("resume", this.resume.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
   this.setup();
@@ -37,6 +38,17 @@ GameManager.prototype.save = function () {
       .fail(function() {
         console.log("failure");
       });
+};
+
+GameManager.prototype.resume = function () {
+  console.log("clicking");
+  var id = $('.resume-button').attr("data-val");
+  var url = "http://localhost:3000/games/" + id;
+
+  $.ajax(url)
+    .done(function(data) {
+      this.loadGame(data);
+  });
 };
 
 //written by AD- this will do the same thing as restarting only send
