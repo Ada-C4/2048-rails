@@ -30,6 +30,8 @@ RemoteStorageManager.prototype.setGameState = function (gameState) {
   // set timer for 10 seconds with a callback
   // that callback will do the AJAX call to save the game
   // and then set the boolean back to false when AJAX call finishes
+  // if the timer was true to begin with, we do nothing
+
   console.log("Initiating AJAX POST for save state")
   var state = JSON.stringify(gameState);
   var url = "save/" + this.gameID;
@@ -39,9 +41,6 @@ RemoteStorageManager.prototype.setGameState = function (gameState) {
     contentType: "application/json; charset=utf-8",
     dataType: "json",
   });
-  // if the timer was true to begin with, we do nothing
-
-  // this.storage.setItem(this.gameStateKey, JSON.stringify(gameState));
 };
 
 RemoteStorageManager.prototype.clearGameState = function () {
