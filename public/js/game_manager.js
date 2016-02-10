@@ -41,13 +41,14 @@ GameManager.prototype.save = function () {
 };
 
 GameManager.prototype.resume = function () {
+  var self = this; 
   console.log("clicking");
   var id = $('.resume-button').attr("data-val");
   var url = "http://localhost:3000/games/" + id;
 
   $.ajax(url)
     .done(function(data) {
-      this.loadGame(data);
+      self.loadGame(data);
   });
 };
 
