@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @games = current_user.games
+    @games = current_user.games.order(:created_at).reverse
   end
 
   def show
