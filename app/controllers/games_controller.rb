@@ -1,6 +1,8 @@
 class GamesController < ApplicationController
   def save
-    render :json => {"a": "apple"}.as_json, status: :ok
+    game = Game.find_by(params[:id])
+    game.update(state: game_params)
+    render :json => params.as_json, status: :ok
   end
 
   def state
@@ -10,5 +12,9 @@ class GamesController < ApplicationController
     else
       render :json => [], status: :no_content
     end
+  end
+
+  def game_params
+    params.require(:state)
   end
 end

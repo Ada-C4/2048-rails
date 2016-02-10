@@ -89,7 +89,14 @@ GameManager.prototype.actuate = function () {
   if (this.over) {
     this.storageManager.clearGameState();
   } else {
-    this.storageManager.setGameState(this.serialize());
+    if (!this.storageManager.updating) {
+      var self = this;
+      this.storageManager.updating = true;
+      this.storageManager.setGameState(this.serialize()).done(function(status) {
+        console.log(status);
+        setTimeout(function() { self.storageManager.updating = false;}, 10000);
+      });
+    }
   }
 
   this.actuator.actuate(this.grid, {
