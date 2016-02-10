@@ -37,7 +37,10 @@ RemoteStorageManager.prototype.setGameState = function (gameState) {
   var url = "save/" + this.gameID;
   return $.ajax(url, {
     type: "POST",
-    data: JSON.stringify({ state: state }),
+    data: JSON.stringify({
+      state: state, won: gameState.won,
+      completed: gameState.over,
+      score: gameState.score }),
     contentType: "application/json; charset=utf-8",
     dataType: "json",
   });

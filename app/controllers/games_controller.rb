@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   def new
     unless current_user.nil?
-      game = Game.create(params[:state])
+      game = Game.create(state: params[:state], score: 0, won: false, completed: false)
       current_user.games << game
       current_user.save
       render :json => { id: game.id }.as_json, status: :ok
@@ -13,7 +13,12 @@ class GamesController < ApplicationController
   def save
     game = Game.find_by(id: params[:id])
     unless game.nil?
-      game.update(state: game_params)
+      game.update(
+        state: game_params[:state],
+        score: game_params[:score],
+        won: game_params[:won],
+        completed: game_params[:completed]
+        )
       render :json => params.as_json, status: :ok
     else
       render :json => [], status: :no_content
@@ -30,6 +35,6 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:state)
+    params.permit(:state, :won, :completed, :score)
   end
 end
