@@ -34,7 +34,7 @@ GameManager.prototype.isGameTerminated = function () {
 
 // Set up the game
 GameManager.prototype.setup = function(gameState) {
-
+  var self = this;
   $.ajax({
     method: "GET",
     url: "/games/get_user",
@@ -51,18 +51,28 @@ GameManager.prototype.setup = function(gameState) {
       }
       $(".load_game_button").click(function(){
         // needs game id, and call setup(state)
-        var datathing = this.attributes[1].value;
+        var id = this.attributes[1].value;
+        $.ajax({
+          method: "GET",
+          url: "/retrieve_game",
+          data: {game_id: id}
+        })
+        .done(function(response) {
+          console.log(response.state)
+          self.setup(response.state)
+        });
+
       });
     });
   });
 
-
+  gameState = JSON.parse(gameState);
   if (gameState) {
     var previousState = gameState
   } else {
     var previousState = this.storageManager.getGameState();
   }
-
+  //console.log(previousState.grid)
   // Reload the game from a previous game if present
   if (previousState) {
     this.grid        = new Grid(previousState.grid.size,

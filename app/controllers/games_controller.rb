@@ -22,7 +22,7 @@ class GamesController < ApplicationController
   def retrieve_game
     respond_to do |format|
       format.json do
-        id = params[:id]
+        id = params[:game_id]
         @result = Game.find(id)
         render json: @result
       end
