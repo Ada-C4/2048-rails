@@ -1,6 +1,10 @@
 class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  def mygames
+    @games = current_user.games
+  end
+
   def save
     @game = Game.new(
       gamestate: params,
@@ -21,7 +25,9 @@ class GamesController < ApplicationController
   end
 
   def destroy
-    @game.destroy
+    id = params[:id]
+    Game.destroy(id)
+    redirect_to mygames_path
   end
 
 end

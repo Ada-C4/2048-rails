@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   get '/auth/:provider/callback' => 'sessions#create', as: :auth
-  resources :games, only: [:update, :destroy]
   post '/games/save' => 'games#save'
+  get '/mygames' => 'games#mygames'
+  resources :games, only: [:update, :destroy]
+
 end

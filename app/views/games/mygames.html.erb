@@ -1,0 +1,36 @@
+<table class="table">
+  <tr>
+    <th>
+      Score
+    </th>
+    <th>
+      Date
+    </th>
+    <th>
+      Resume
+    </th>
+    <th>
+      Delete
+    </th>
+  </tr>
+  <% if @games.length == 0 %>
+    <h4>no saved games :(</h4>
+  <% else %>
+    <% @games.each do |game| %>
+      <tr>
+        <td>
+          <%= game.score %>
+        </td>
+        <td>
+          <%= game.created_at %>
+        </td>
+        <td>
+          <%= button_to "play" %>
+        </td>
+        <td>
+          <%= link_to "Delete",  { :controller=>"games", action: :destroy, :id => game.id}, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
