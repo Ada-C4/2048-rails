@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # end
 
   def last_game
-    unless current_user.nil?
+    unless current_user.nil? || current_user.games.empty?
       render :json => { id: current_user.games.order('updated_at').last.id }, status: :ok
     else
       render :json => [], status: :no_content
