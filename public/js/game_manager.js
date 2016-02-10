@@ -29,7 +29,7 @@ GameManager.prototype.save = function () {
     $.ajax({
       method: "POST",
       url: url,
-      data: stateOfGame
+      data: JSON.parse(stateOfGame)
     })
       .done(function() {
         console.log("success");
