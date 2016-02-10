@@ -16,16 +16,9 @@
 //= require_tree .
 $(document).ready(function(){
 
+  $(".resume-game").click(function () {
 
 
+  });
 
-
-
-
-
-
-
-
-
-  
 });

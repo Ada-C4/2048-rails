@@ -37,7 +37,7 @@
                 <%= distance_of_time_in_words(game.created_at, Time.now, include_seconds: true)%> ago
               </td>
               <td>
-                <div class= "btn btn-info" attr= "<%= game.id %>" >Resume</div>
+                <div class= "btn btn-info resume-game" attr= "<%= game.id %>" >Resume</div>
               </td>
               <td>
                 <%= link_to "Delete",  { :controller=>"games", action: :destroy, :id => game.id}, method: :delete, data: { confirm: 'Are you sure?' } %>
