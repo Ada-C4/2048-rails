@@ -46,7 +46,7 @@ GameManager.prototype.setup = function(gameState) {
     })
     .done(function(response) {
       for (i=0; i < response.length; i++) {
-        $("#game-list").append("<li>" + response[i].created_at + "</li>");
+        $("#game-list").append("<li><a href='#'>" + response[i].created_at + "</a></li>");
       }
     });
   });

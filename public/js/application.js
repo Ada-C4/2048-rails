@@ -27,9 +27,7 @@ window.requestAnimationFrame(function () {
         data: {user_id: data.id}
       })
       .done(function(response) {
-        for (i=0; i < response.length; i++) {
-          $("#game-list").append("<li>" + response[i].created_at + "</li>");
-        }
+          $("#game-list").append("<li><a href='#'>" + response[(response.length)-1].created_at + "</a></li>");
       });
     });
 
