@@ -7,9 +7,9 @@ class GameController < ApplicationController
 	  	# update game
 	  else
 	  	# create game
-	  	# binding.pry
-	  	game = Game.new
+	  	game = Game.create(user_id: session[:user_id], gamestate: params[:gamestate], game_over: params[:gamestate][:over])
 	  	# add new game id to the session
+	  	session[:game_id] = game.id
 	  end
 	  render :json => game
 	end

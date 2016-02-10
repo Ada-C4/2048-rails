@@ -23,7 +23,7 @@ GameManager.prototype.saveGameState = function () {
   var url = "/game";
   $.ajax(url, {
       type: "POST",
-      data: this.storageManager.getGameState(),
+      data: {"gamestate" : this.storageManager.getGameState()},
     })
       .done(function(data) {
         // done code here
