@@ -1,9 +1,15 @@
 class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def mygames
+  def index
     @games = current_user.games
   end
+
+  def show
+    #this is the method that will do something to game manager and make
+    #game manager do a get call, and this method will render the json
+  end
+
 
   def save
     @game = Game.new(
@@ -28,7 +34,7 @@ class GamesController < ApplicationController
   def destroy
     id = params[:id]
     Game.destroy(id)
-    redirect_to mygames_path
+    redirect_to index_path
   end
 
   def leaderboard

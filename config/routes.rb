@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   get '/auth/:provider/callback' => 'sessions#create', as: :auth
   post '/games/save' => 'games#save'
-  get '/mygames' => 'games#mygames'
+  get '/games' => 'games#index'
+  get '/games/:id' => 'games#show'
   resources :games, only: [:update, :destroy]
   get '/leaderboard' => 'games#leaderboard'
 
