@@ -1,7 +1,11 @@
 // Wait till the browser is ready to render the game (avoids glitches)
 window.requestAnimationFrame(function () {
   var game = new GameManager(4, KeyboardInputManager, HTMLActuator, ApiStorageManager);
-
+  $(".load_game_button").click(function(){
+    // needs game id, and call setup(state)
+    var datathing = this.attr();
+    console.log(datathing);
+  });
 
 
   $("#save-button").click(function() {
@@ -27,7 +31,7 @@ window.requestAnimationFrame(function () {
         data: {user_id: data.id}
       })
       .done(function(response) {
-          $("#game-list").append("<li><a href='#'>" + response[(response.length)-1].created_at + "</a></li>");
+          $("#game-list").append("<li><a class='load_game_button' data-id="+ response[(response.length)-1].id + "href='javascript:void(0)'>" + response[(response.length)-1].created_at + "</a></li>");
       });
     });
 

@@ -9,6 +9,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
+  // this.inputManager.on("loadGame", this.setup.bind(this));
 
   this.setup();
 }
@@ -46,7 +47,7 @@ GameManager.prototype.setup = function(gameState) {
     })
     .done(function(response) {
       for (i=0; i < response.length; i++) {
-        $("#game-list").append("<li><a href='#'>" + response[i].created_at + "</a></li>");
+        $("#game-list").append("<li><a class='load_game_button' data-id='"+ response[i].id + "' href='javascript:void(0)'>" + response[i].created_at + "</a></li>");
       }
     });
   });
