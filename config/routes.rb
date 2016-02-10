@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   post '/logout', to: "sessions#destroy"
 
   root "site#index"
+
+  post '/game/:id/update' => "game#update", as: :update
 end

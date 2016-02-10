@@ -9,9 +9,30 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
+  this.inputManager.on("saveGameState", this.saveGameState.bind(this));
 
   this.setup();
+
+  // call the rails route that saves a new instace of the game
 }
+
+GameManager.prototype.saveGameState = function () {
+  var currentState = this.storageManager.getGameState();
+  // call the ajax for the update game
+  console.log(this.storageManager.getGameState())
+  var url = "/game/1/update";
+  $.ajax(url, {
+      type: "POST"
+    })
+      .done(function(data) {
+        // done code here
+        console.log("DONE!");
+        console.log(data);
+      })
+      .fail(function(){
+        console.log("FAIL");
+      })
+};
 
 // Restart the game
 GameManager.prototype.restart = function () {
@@ -28,6 +49,11 @@ GameManager.prototype.keepPlaying = function () {
 
 // Return true if the game is lost, or has won and the user hasn't kept playing
 GameManager.prototype.isGameTerminated = function () {
+  if(this.over){
+    // call the route that saves the score and set the status to lost/not playing
+  } else if (this.won) {
+    // call the route that saves the score and leave the status as playing
+  }
   return this.over || (this.won && !this.keepPlaying);
 };
 
@@ -36,7 +62,7 @@ GameManager.prototype.setup = function () {
   var previousState = this.storageManager.getGameState();
 
   // Reload the game from a previous game if present
-  if (previousState) {
+   if (previousState) {
     this.grid        = new Grid(previousState.grid.size,
                                 previousState.grid.cells); // Reload grid
     this.score       = previousState.score;
@@ -44,12 +70,13 @@ GameManager.prototype.setup = function () {
     this.won         = previousState.won;
     this.keepPlaying = previousState.keepPlaying;
   } else {
+    // go to the new game route
     this.grid        = new Grid(this.size);
     this.score       = 0;
     this.over        = false;
     this.won         = false;
     this.keepPlaying = false;
-
+    this.gameId      = 0;
     // Add the initial tiles
     this.addStartTiles();
   }

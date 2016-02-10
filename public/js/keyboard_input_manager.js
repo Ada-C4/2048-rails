@@ -72,6 +72,7 @@ KeyboardInputManager.prototype.listen = function () {
   this.bindButtonPress(".retry-button", this.restart);
   this.bindButtonPress(".restart-button", this.restart);
   this.bindButtonPress(".keep-playing-button", this.keepPlaying);
+  this.bindButtonPress(".save", this.saveGameState);
 
   // Respond to swipe events
   var touchStartClientX, touchStartClientY;
@@ -127,6 +128,11 @@ KeyboardInputManager.prototype.listen = function () {
   });
 };
 
+KeyboardInputManager.prototype.saveGameState = function (event) {
+  event.preventDefault();
+  this.emit("saveGameState");
+};
+
 KeyboardInputManager.prototype.restart = function (event) {
   event.preventDefault();
   this.emit("restart");
@@ -139,6 +145,7 @@ KeyboardInputManager.prototype.keepPlaying = function (event) {
 
 KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
   var button = document.querySelector(selector);
+  console.log(fn)
   button.addEventListener("click", fn.bind(this));
   button.addEventListener(this.eventTouchend, fn.bind(this));
 };
