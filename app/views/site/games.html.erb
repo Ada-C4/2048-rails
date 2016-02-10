@@ -2,6 +2,6 @@
 
 <div class="game-list">
   <% @games.each do |game| %>
-    <%= link_to "Game", "/#{game.id}" %>
+    <%= link_to "Game", "/users/#{current_user.id}/game/#{game.id}.html" %>
   <% end %>
 </div>

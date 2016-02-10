@@ -57,7 +57,9 @@ RemoteStorageManager.prototype.getGameState = function () {
   //     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
   //   }
   // });
-  var url = "/chosen-game";
+  var userID = "1";
+  var gameID = "1";
+  var url = "/users/" + userID + "/game/" + gameID;
   // $(document).ready(function(){
     $.ajax(url, {
       method: "GET"
