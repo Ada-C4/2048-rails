@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'signout' => 'sessions#destroy'
 
   post 'save/:id' => 'games#save'
+  get 'new' => 'games#new'
   get 'games/:id' => 'games#state', as: :state
   # get 'users' => 'users#current_user'
   get 'users' => 'users#last_game'

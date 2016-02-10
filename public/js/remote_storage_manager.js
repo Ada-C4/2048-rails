@@ -44,5 +44,9 @@ RemoteStorageManager.prototype.setGameState = function (gameState) {
 };
 
 RemoteStorageManager.prototype.clearGameState = function () {
+  this.gameID = null;
+
+  var url = "new/";
+  return $.ajax(url, {});
   // this.storage.removeItem(this.gameStateKey);
 };
