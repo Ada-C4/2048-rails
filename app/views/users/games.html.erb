@@ -1,5 +1,45 @@
-<h1>Games</h1>
+<div class="container">
+  <div class="heading">
+    <h1 class="title">My Games</h1>
+  </div>
+  <h2>Active Games</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Last played</td>
+        <td>Score</td>
+        <td>Load?</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @games.each do |game| %>
+        <tr>
+          <td>Some date</td>
+          <td>100</td>
+          <td>Load!</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<% @games.each do |game| %>
-  <%= game.score %>
-<% end %>
+  <h2>Completed Games</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Last played</td>
+        <td>Score</td>
+        <td>Won?</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @games.each do |game| %>
+        <tr>
+          <td>Last played</td>
+          <td>100</td>
+          <td>Yes :)</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
