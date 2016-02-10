@@ -8,6 +8,9 @@ class GamesController < ApplicationController
   def show
     #this is the method that will do something to game manager and make
     #game manager do a get call, and this method will render the json
+    # call method in games.coffee, it will call game manager
+    @game = Game.find(params[:id])
+    
   end
 
 
