@@ -25,7 +25,7 @@ GameManager.prototype.restart = function () {
 GameManager.prototype.save = function () {
     var stateOfGame = this.storageManager.storage.gameState;
     var url = "http://localhost:3000/games/save"
-    
+
     $.ajax({
       method: "POST",
       url: url,
@@ -39,12 +39,13 @@ GameManager.prototype.save = function () {
       });
 };
 
-//Continue saved game? -AD
+//written by AD- this will do the same thing as restarting only send
 GameManager.prototype.loadGame = function () {
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
-  this.setup();
+  this.setup(); //add savedGame as an optional parameter into setup
 };
+
 
 // Keep playing after winning (allows going over 2048)
 GameManager.prototype.keepPlaying = function () {
@@ -58,8 +59,14 @@ GameManager.prototype.isGameTerminated = function () {
 };
 
 // Set up the game
-GameManager.prototype.setup = function () {
-  var previousState = this.storageManager.getGameState();
+//edited by AD to be able to take input possibly
+GameManager.prototype.setup = function (savedGame) {
+  var previousState;
+  if (savedGame) {
+    previousState = savedGame;
+  } else {
+    previousState = this.storageManager.getGameState();
+  };
 
   // Reload the game from a previous game if present
   if (previousState) {

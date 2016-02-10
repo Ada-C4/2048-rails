@@ -36,7 +36,6 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
 };
 
 // Continues the game (both restart and keep playing)
-//and from load saved?? -AD
 HTMLActuator.prototype.continueGame = function () {
   this.clearMessage();
 };
