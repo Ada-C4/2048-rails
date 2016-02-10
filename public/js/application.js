@@ -2,6 +2,10 @@
 window.requestAnimationFrame(function () {
   var game = new GameManager(4, KeyboardInputManager, HTMLActuator, ApiStorageManager);
 
+  $('#load-button').click(function() {
+
+  });
+
   $("#save-button").click(function() {
     state = game.storageManager.storage.gameState;
     console.log("Hitting the right part of code");
