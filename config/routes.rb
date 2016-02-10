@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   root "site#index"
 
   post '/game' => "game#update", as: :update
+
+  get '/game' => "game#new", as: :new
 end

@@ -136,6 +136,18 @@ KeyboardInputManager.prototype.saveGameState = function (event) {
 KeyboardInputManager.prototype.restart = function (event) {
   event.preventDefault();
   this.emit("restart");
+  var url = "/game/";
+  $.ajax(url, {
+      type: "GET",
+    })
+      .done(function(data) {
+        // done code here
+        console.log("DONE!");
+        console.log(data);
+      })
+      .fail(function(data){
+        console.log("FAIL", data);
+      });
 };
 
 KeyboardInputManager.prototype.keepPlaying = function (event) {
@@ -147,6 +159,6 @@ KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
   var button = document.querySelector(selector);
   if (button) {
     button.addEventListener("click", fn.bind(this));
-    button.addEventListener(this.eventTouchend, fn.bind(this));  
+    button.addEventListener(this.eventTouchend, fn.bind(this));
   }
 };
