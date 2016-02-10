@@ -1,6 +1,6 @@
-function RemoteStorageManager(userID) {
-  this.userID = userID;
-  // this.gameID = 1;
+function RemoteStorageManager(game) {
+  // this.userID = userID;
+  this.gameID = game ? game.id : null;
 }
 
 // Best score getters/setters
@@ -18,8 +18,8 @@ RemoteStorageManager.prototype.setBestScore = function (score) {
 
 // Game state getters/setters and clearing
 RemoteStorageManager.prototype.getGameState = function () {
-  // var url = "games/" + this.gameID
-  var url = "users/" + this.userID;
+  var url = "games/" + this.gameID
+  // var url = "users/" + this.userID;
   return $.ajax(url, {});
 };
 

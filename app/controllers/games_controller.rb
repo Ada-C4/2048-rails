@@ -4,7 +4,11 @@ class GamesController < ApplicationController
   end
 
   def state
-    game = Game.find(params[:id])
-    render :json => game.state, status: :ok
+    game = Game.find_by(id: params[:id])
+    unless game.nil?
+      render :json => game.state, status: :ok
+    else
+      render :json => [], status: :no_content
+    end
   end
 end
