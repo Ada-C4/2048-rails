@@ -43,6 +43,7 @@ GameManager.prototype.save = function () {
 GameManager.prototype.loadGame = function () {
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
+  //makes ajax get request to game/:id. passes that game to .setup
   this.setup(); //add savedGame as an optional parameter into setup
 };
 
