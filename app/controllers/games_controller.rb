@@ -10,7 +10,8 @@ class GamesController < ApplicationController
     #game manager do a get call, and this method will render the json
     # call method in games.coffee, it will call game manager
     @game = Game.find(params[:id])
-    
+
+    render :json => @game.as_json(except: [:created_at, :updated_at]), :status => :ok    
   end
 
 

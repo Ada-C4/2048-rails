@@ -9,6 +9,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("save", this.save.bind(this));
+  this.inputManager.on("resume", this.resume.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
   this.setup();
@@ -39,12 +40,30 @@ GameManager.prototype.save = function () {
       });
 };
 
+GameManager.prototype.resume = function () {
+  var self = this; 
+  console.log("clicking");
+  var id = $('.resume-button').attr("data-val");
+  var url = "http://localhost:3000/games/" + id;
+
+  $.ajax(url)
+    .done(function(data) {
+      self.loadGame(data);
+  });
+};
+
 //written by AD- this will do the same thing as restarting only send
 GameManager.prototype.loadGame = function () {
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
   //makes ajax get request to game/:id. passes that game to .setup
-  this.setup(); //add savedGame as an optional parameter into setup
+  // this.setup();
+  // $ajax.
+  // GEt
+  // blahblahc
+  // "games/2"
+  // this.setup(the thing that comes from ajax)
+
 };
 
 
