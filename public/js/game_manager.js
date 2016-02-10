@@ -19,11 +19,11 @@ GameManager.prototype.restart = function () {
   this.storageManager.clearGameState()
     .done(function(newGame) {
       console.log(newGame);
+      self.storageManager.updating = false;
       self.storageManager.gameID = newGame.id;
-      console.log(self.storageManager.gameID);
+      self.actuator.continueGame(); // Clear the game won/lost message
+      self.setup();
     });
-  this.actuator.continueGame(); // Clear the game won/lost message
-  this.setup();
 };
 
 // Keep playing after winning (allows going over 2048)
