@@ -15,6 +15,10 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+.leaderboard-container {
+  padding-top: 60px;
+}
+
  .user-info-holder {
    max-width: 500px;
    background-color: #eee4da;

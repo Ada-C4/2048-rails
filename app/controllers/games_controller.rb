@@ -13,6 +13,7 @@ class GamesController < ApplicationController
       won: params["won"],
       keepplaying: params["keepPlaying"],
     )
+    current_user.games << @game
     @game.user_id = current_user.id
     @game.save
 
@@ -28,6 +29,10 @@ class GamesController < ApplicationController
     id = params[:id]
     Game.destroy(id)
     redirect_to mygames_path
+  end
+
+  def leaderboard
+    @games = Game.all.order(score: :desc)
   end
 
 end

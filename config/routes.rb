@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   post '/games/save' => 'games#save'
   get '/mygames' => 'games#mygames'
   resources :games, only: [:update, :destroy]
+  get '/leaderboard' => 'games#leaderboard'
 
 end
