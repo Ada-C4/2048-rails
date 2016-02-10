@@ -17,7 +17,7 @@ RemoteStorageManager.prototype.setBestScore = function (score) {
 
 // Game state getters/setters and clearing
 RemoteStorageManager.prototype.getGameState = function () {
-  var url = "games/" + this.gameID
+  var url = "games/" + this.gameID;
   return $.ajax(url, {});
 };
 
