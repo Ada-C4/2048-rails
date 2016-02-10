@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get 'games/:id' => 'games#state', as: :state
   # get 'users' => 'users#current_user'
   get 'users' => 'users#last_game'
+  get 'users/:id/games' => 'users#games', as: :user_games
 end

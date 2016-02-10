@@ -17,7 +17,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">2048!</a>
+        <%= link_to "2048!", root_path, class: "navbar-brand" %>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -29,7 +29,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">My Games</a></li>
+                <li><%= link_to "My Games", user_games_path(id: current_user.id) %></li>
                 <li><a href="#">Settings</a></li>
                 <li role="separator" class="divider"></li>
                 <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>

@@ -10,4 +10,9 @@ class UsersController < ApplicationController
       render :json => [], status: :no_content
     end
   end
+
+  def games
+    user = User.find(params[:id])
+    @games = user.games
+  end
 end
