@@ -32,7 +32,7 @@ GameManager.prototype.isGameTerminated = function () {
 };
 
 // Set up the game
-GameManager.prototype.setup = function () {
+GameManager.prototype.setup = function(gameState) {
 
   $.ajax({
     method: "GET",
@@ -50,8 +50,12 @@ GameManager.prototype.setup = function () {
       }
     });
   });
+  if (gameState) {
+    var previousState = gameState
+  } else {
+    var previousState = this.storageManager.getGameState();
+  }
 
-  var previousState = this.storageManager.getGameState();
   // Reload the game from a previous game if present
   if (previousState) {
     this.grid        = new Grid(previousState.grid.size,
