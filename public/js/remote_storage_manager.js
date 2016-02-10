@@ -1,6 +1,7 @@
 function RemoteStorageManager(game) {
   // this.userID = userID;
   this.gameID = game ? game.id : null;
+  this.update = false;
 }
 
 // Best score getters/setters
@@ -25,7 +26,10 @@ RemoteStorageManager.prototype.getGameState = function () {
 
 RemoteStorageManager.prototype.setGameState = function (gameState) {
   // check the boolean on whether we planned to update game state immenently
-  // if false then set boolean true then set timer for 10 seconds with a callback
+  if (!this.update) {
+    // if false then set boolean true then set timer for 10 seconds with a callback
+
+  }
   // that callback will do the AJAX call to save the game
   // and then set the boolean back to false when AJAX call finishes
   // if the timer was true to begin with, we do nothing
