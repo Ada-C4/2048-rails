@@ -32,7 +32,7 @@ RemoteStorageManager.prototype.setGameState = function (gameState) {
   // and then set the boolean back to false when AJAX call finishes
   // if the timer was true to begin with, we do nothing
 
-  console.log("Initiating AJAX POST for save state")
+  console.log("Initiating AJAX POST for save state");
   var state = JSON.stringify(gameState);
   var url = "save/" + this.gameID;
   return $.ajax(url, {
