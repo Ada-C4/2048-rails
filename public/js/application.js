@@ -4,6 +4,11 @@ window.requestAnimationFrame(function () {
   var url = "users";
   $.ajax(url, {}).done(function(game) {
     console.log(game);
-    new GameManager(4, KeyboardInputManager, HTMLActuator, RemoteStorageManager, game);
+    new GameManager(
+      4,
+      KeyboardInputManager,
+      HTMLActuator,
+      RemoteStorageManager,
+      game);
   });
 });
