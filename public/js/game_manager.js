@@ -33,6 +33,24 @@ GameManager.prototype.isGameTerminated = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
+
+  $.ajax({
+    method: "GET",
+    url: "/games/get_user",
+  })
+  .done(function(data) {
+    $.ajax({
+      method: "GET",
+      url: "/load_games",
+      data: {user_id: data.id}
+    })
+    .done(function(response) {
+      for (i=0; i < response.length; i++) {
+        $("#game-list").append("<li>" + response[i].created_at + "</li>");
+      }
+    });
+  });
+
   var previousState = this.storageManager.getGameState();
   // Reload the game from a previous game if present
   if (previousState) {

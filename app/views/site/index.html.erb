@@ -11,10 +11,6 @@
 
 <%= render file: "public/game.html.erb" %>
 
-<div>
-  <ul>
-    <% @games.each do |game| %>
-    <li><%= game.state %>, created at <%= game.created_at %></li>
-    <% end %>
-  </ul>
+<div >
+  <ul id="game-list"></ul>
 </div>

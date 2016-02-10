@@ -2,9 +2,7 @@
 window.requestAnimationFrame(function () {
   var game = new GameManager(4, KeyboardInputManager, HTMLActuator, ApiStorageManager);
 
-  $('#load-button').click(function() {
 
-  });
 
   $("#save-button").click(function() {
     state = game.storageManager.storage.gameState;
@@ -23,6 +21,17 @@ window.requestAnimationFrame(function () {
       .done(function(response) {
         console.log(response);
       });
+      $.ajax({
+        method: "GET",
+        url: "/load_games",
+        data: {user_id: data.id}
+      })
+      .done(function(response) {
+        for (i=0; i < response.length; i++) {
+          $("#game-list").append("<li>" + response[i].created_at + "</li>");
+        }
+      });
     });
+
   });
 });

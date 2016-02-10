@@ -9,6 +9,16 @@ class GamesController < ApplicationController
 
   end
 
+  def load_games
+    respond_to do |format|
+      format.json do
+        user_id = params[:user_id]
+        @result = Game.where(user_id: user_id)
+        render json: @result
+      end
+    end
+  end
+
   def retrieve_game
     respond_to do |format|
       format.json do
