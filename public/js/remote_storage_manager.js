@@ -50,7 +50,30 @@ RemoteStorageManager.prototype.setBestScore = function (score) {
 
 // Game state getters/setters and clearing
 RemoteStorageManager.prototype.getGameState = function () {
-  var stateJSON = this.storage.getItem(this.gameStateKey);
+  var stateJSON;
+//not sure if we need commented out code:
+  // $.ajaxSetup({
+  //   headers: {
+  //     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  //   }
+  // });
+  var url = "/chosen-game";
+  // $(document).ready(function(){
+    $.ajax(url, {
+      method: "GET"
+    })
+      .done(function(data) {
+        console.log("DONE!");
+        console.log(data);
+        stateJSON = data;
+      })
+      .fail(function(){
+        console.log("fail");
+      })
+      .always(function(){
+        console.log("always");
+      });
+  // var stateJSON = this.storage.getItem(this.gameStateKey);
   return stateJSON ? JSON.parse(stateJSON) : null;
 };
 
