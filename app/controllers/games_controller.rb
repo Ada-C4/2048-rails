@@ -7,10 +7,10 @@ class GamesController < ApplicationController
       score: params["score"],
       over: params["over"],
       won: params["won"],
-      keepplaying: params["keepPlaying"]
+      keepplaying: params["keepPlaying"],
     )
+    @game.user_id = current_user.id
     @game.save
-    current_user.games << @game
 
     render json: [], status: 200
   end
