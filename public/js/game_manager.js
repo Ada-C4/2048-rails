@@ -89,7 +89,7 @@ GameManager.prototype.actuate = function () {
   if (this.over) {
     this.storageManager.clearGameState();
   } else {
-    if (!this.storageManager.updating) {
+    if (!this.storageManager.updating && this.storageManager.gameID) {
       var self = this;
       this.storageManager.updating = true;
       this.storageManager.setGameState(this.serialize()).done(function(status) {
