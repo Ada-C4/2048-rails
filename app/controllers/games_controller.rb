@@ -5,6 +5,6 @@ class GamesController < ApplicationController
 
   def state
     game = Game.find(params[:id])
-    render :json => game.state.as_json, status: :ok
+    render :json => game.state, status: :ok
   end
 end
