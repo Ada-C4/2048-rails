@@ -19,19 +19,20 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 GameManager.prototype.saveGameState = function () {
   var currentState = this.storageManager.getGameState();
   // call the ajax for the update game
-  console.log(this.storageManager.getGameState())
-  var url = "/game/1/update";
+  // console.log(this.storageManager.getGameState());
+  var url = "/game";
   $.ajax(url, {
-      type: "POST"
+      type: "POST",
+      data: this.storageManager.getGameState(),
     })
       .done(function(data) {
         // done code here
         console.log("DONE!");
         console.log(data);
       })
-      .fail(function(){
-        console.log("FAIL");
-      })
+      .fail(function(data){
+        console.log("FAIL", data);
+      });
 };
 
 // Restart the game

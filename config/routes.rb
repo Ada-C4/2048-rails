@@ -6,5 +6,5 @@ Rails.application.routes.draw do
 
   root "site#index"
 
-  post '/game/:id/update' => "game#update", as: :update
+  post '/game' => "game#update", as: :update
 end
