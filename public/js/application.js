@@ -18,7 +18,6 @@ window.requestAnimationFrame(function () {
       }
       $(".load_game_button").click(function(){
         // needs game id, and call setup(state)
-        console.log(this.attributes[1].value)
         var id = this.attributes[1].value;
         $.ajax({
           method: "GET",
@@ -26,7 +25,6 @@ window.requestAnimationFrame(function () {
           data: {game_id: id}
         })
         .done(function(response) {
-          console.log(response.state);
           game.setup(response.state);
         });
 
@@ -37,20 +35,17 @@ window.requestAnimationFrame(function () {
 
   $("#save-button").click(function() {
     state = game.storageManager.storage.gameState;
-    console.log("Hitting the right part of code");
     $.ajax({
       method: "GET",
       url: "/games/get_user",
     })
     .done(function(data) {
-      console.log(data);
       $.ajax({
         method: "POST",
         url: "/users/" + data.id + "/create_game",
         data: { state: state}
       })
       .done(function(response) {
-        console.log(response);
       });
       $.ajax({
         method: "GET",
@@ -69,7 +64,6 @@ window.requestAnimationFrame(function () {
             data: {game_id: id}
           })
           .done(function(response) {
-            console.log(response.state);
             game.setup(response.state);
           });
         })

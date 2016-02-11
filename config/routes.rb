@@ -15,4 +15,6 @@ Rails.application.routes.draw do
 
   get "/load_games" => "games#load_games", as: :load_games
   get "/retrieve_game" => "games#retrieve_game", as: :retrieve_game
+  get "/get_user" => "games#get_user", as: :get_user
+
 end

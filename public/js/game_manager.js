@@ -34,44 +34,23 @@ GameManager.prototype.isGameTerminated = function () {
 
 // Set up the game
 GameManager.prototype.setup = function(gameState) {
-  // var self = this;
-  // $.ajax({
-  //   method: "GET",
-  //   url: "/games/get_user",
-  // })
-  // .done(function(data) {
-  //   $.ajax({
-  //     method: "GET",
-  //     url: "/load_games",
-  //     data: {user_id: data.id}
-  //   })
-  //   .done(function(response) {
-  //     for (i=0; i < response.length; i++) {
-  //       $("#game-list").append("<li><a class='load_game_button' data-id='"+ response[i].id + "' href='javascript:void(0)'>" + response[i].created_at + "</a></li>");
-  //     }
-  //     $(".load_game_button").click(function(){
-  //       // needs game id, and call setup(state)
-  //       var id = this.attributes[1].value;
-  //       $.ajax({
-  //         method: "GET",
-  //         url: "/retrieve_game",
-  //         data: {game_id: id}
-  //       })
-  //       .done(function(response) {
-  //         console.log(response.state)
-  //         self.setup(response.state)
-  //       });
-  //
-  //     });
-  //   });
-  // });
+  $.ajax({
+      type: "GET",
+      url:"/get_user",
+    })
 
-
-  if (gameState) {
-    gameState = JSON.parse(gameState);
-    var previousState = gameState
+  .done(function(response) {
+    var user = response;
+  });
+  if (user){
+    if (gameState) {
+      gameState = JSON.parse(gameState);
+      var previousState = gameState
+    } else {
+      var previousState = this.storageManager.getGameState();
+    }
   } else {
-    var previousState = this.storageManager.getGameState();
+    var previousState = null;
   }
   //console.log(previousState.grid)
   // Reload the game from a previous game if present
@@ -91,7 +70,6 @@ GameManager.prototype.setup = function(gameState) {
 
     // Add the initial tiles
     this.addStartTiles();
-    console.log(this.grid);
 
 
     // $.ajax({
