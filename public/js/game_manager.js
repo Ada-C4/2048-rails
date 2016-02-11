@@ -36,22 +36,19 @@ GameManager.prototype.saveGameState = function () {
       type: "POST",
       data: {"gamestate" : stringGameState},
     })
-      .done(function(data) {
-        // done code here
-        console.log('Game saved');
-          // Update the load game div
-          console.log(this, data);
-          $.ajax('/games', {
-            type: "GET",
+      .done(function() {
+        // Display the load game div
+        $.ajax('/games', {
+          type: "GET",
+        })
+          .done(function(htmlRes){
+            $('#saved-games').html(htmlRes);
+            // bind load game handler to loadgame links
+            $('.loadGame').click(loadGameClickHandler);
           })
-            .done(function(htmlRes){
-              $('#saved-games').html(htmlRes);
-              // bind load game handler to loadgame links
-              $('.loadGame').click(loadGameClickHandler);
-            })
-            .fail(function(){
-              console.log('show user saved games: fail', html);
-            });
+          .fail(function(){
+            console.log('show user saved games: fail', html);
+          });
       })
       .fail(function(data){
         console.log("Fail to save game", data);
