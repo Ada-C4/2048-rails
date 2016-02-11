@@ -51,7 +51,7 @@ ApiStorageManager.prototype.setBestScore = function (score) {
     url:"/get_user",
   })
   .done(function(response) {
-    self.storage.setItem(self.bestScoreKey, score);
+    //self.storage.setItem(self.bestScoreKey, score);
     $.ajax({
       type: "POST",
       url:"/set_score",
@@ -59,6 +59,7 @@ ApiStorageManager.prototype.setBestScore = function (score) {
     })
     .done(function(response) {
       console.log("it worked");
+      self.storage.setItem(self.bestScoreKey, score);
     });
   });
 };

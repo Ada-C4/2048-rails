@@ -10,11 +10,13 @@ class GamesController < ApplicationController
 
   def set_score
     @current_user = current_user
-    user_id = @current_user.id
-    best_score = params[:bestScore]
-    user = User.find(user_id)
-    user.best_score = best_score
-    user.save
+    if @current_user
+      user_id = @current_user.id
+      best_score = params[:bestScore]
+      user = User.find(user_id)
+      user.best_score = best_score
+      user.save
+    end
     render json: [@current_user, user.best_score]
   end
 
