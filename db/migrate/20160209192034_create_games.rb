@@ -1,7 +1,7 @@
 class CreateGames < ActiveRecord::Migration
   def change
     create_table :games do |t|
-      t.text :grid
+      t.text :gamestate
       t.integer :score
       t.boolean :over
       t.boolean :won

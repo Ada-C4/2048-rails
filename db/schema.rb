@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20160209235918) do
 
   create_table "games", force: :cascade do |t|
-    t.text     "grid"
+    t.text     "gamestate"
     t.integer  "score"
     t.boolean  "over"
     t.boolean  "won"
