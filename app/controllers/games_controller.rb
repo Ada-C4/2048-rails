@@ -18,12 +18,13 @@ class GamesController < ApplicationController
 
 
   def save
+    binding.pry
     @game = Game.new(
       gamestate: params["data"],
-      score: params["data"]["score"],
-      over: params["data"]["over"],
-      won: params["data"]["won"],
-      keepplaying: params["data"]["keepPlaying"],
+      score: JSON.parse(params["data"])["score"],
+      over: JSON.parse(params["data"])["over"],
+      won: JSON.parse(params["data"])["over"],
+      keepplaying: JSON.parse(params["data"])["keepPlaying"],
     )
     @game.user_id = current_user.id
 
