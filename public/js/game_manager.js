@@ -31,6 +31,7 @@ GameManager.prototype.restart = function () {
 // Keep playing after winning (allows going over 2048)
 GameManager.prototype.keepPlaying = function () {
   this.keepPlaying = true;
+  this.storageManager.setGameState(this.serialize());
   this.actuator.continueGame(); // Clear the game won/lost message
 };
 
