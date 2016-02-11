@@ -33,6 +33,6 @@ class UsersController < ApplicationController
   def get_best_score
     game = Game.find(params[:id])
     player = game.user
-    render :json => {best_score: player.best_score || 0 }, status: :ok
+    render :json => {bestScore: player.best_score || 0 }, status: :ok
   end
 end

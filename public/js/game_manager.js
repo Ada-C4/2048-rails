@@ -87,9 +87,11 @@ GameManager.prototype.addRandomTile = function () {
 
 // Sends the updated grid to the actuator
 GameManager.prototype.actuate = function () {
-  if (this.storageManager.getBestScore() < this.score) {
-    this.storageManager.setBestScore(this.score);
-  }
+  var self = this;
+
+  // if (this.storageManager.getBestScore() < this.score) {
+  //   this.storageManager.setBestScore(this.score);
+  // }
 
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {
@@ -98,7 +100,6 @@ GameManager.prototype.actuate = function () {
     this.storageManager.clearGameState(gameOver);
   } else {
     if (!this.storageManager.updating && this.storageManager.gameID) {
-      var self = this;
       this.storageManager.updating = true;
       this.storageManager.setGameState(this.serialize()).done(function(status) {
         console.log(status);
@@ -107,13 +108,17 @@ GameManager.prototype.actuate = function () {
     }
   }
 
-  this.actuator.actuate(this.grid, {
-    score:      this.score,
-    over:       this.over,
-    won:        this.won,
-    bestScore:  this.storageManager.getBestScore(),
-    terminated: this.isGameTerminated()
+
+  this.storageManager.getBestScore().done(function(score) {
+    self.actuator.actuate(self.grid, {
+      score:      self.score,
+      over:       self.over,
+      won:        self.won,
+      bestScore:  score.bestScore,
+      terminated: self.isGameTerminated()
+    });
   });
+
 
 };
 
