@@ -14,13 +14,13 @@ class GameController < ApplicationController
 	  	game.update(gamestate: params[:gamestate], game_over: params[:gamestate][:over])
 	  else
 	  	# create game
-	  	game = Game.create(user_id: session[:user_id], gamestate: params[:gamestate], game_over: params[:gamestate][:over])
+			binding.pry
+	  	game = Game.create(user_id: session[:user_id], gamestate: params[:gamestate], game_over: params[:gamestate][:over], score: params[:gamestate][:score])
 	  	# add new game id to the session
 	  	session[:game_id] = game.id
 	  end
+    @games = Game.where(user_id: session[:user_id])
 	  render :json => game
 	end
-
-	#delete an ongoing game
 
 end
