@@ -1,0 +1,9 @@
+<h1>Leaderboard</h1>
+<ol>
+  <% @games.each do |game| %>
+    <li>
+      <%= game.score %>
+      <%= game.user.name %>
+    </li>
+  <% end %>
+</ol>
