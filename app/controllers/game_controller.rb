@@ -18,6 +18,10 @@ class GameController < ApplicationController
 	  	# add new game id to the session
 	  	session[:game_id] = game.id
 	  end
+		# gets the top 5 scoring games
+		@top_games = Game.order(score: :desc).limit(5)
+		# gets all the user's games that are not over
+		@user_games = Game.find_by(user_id: session[:user_id], game_over: false)
 	  render :json => game, status: :ok
 	end
 
