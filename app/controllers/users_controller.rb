@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   before_action :require_login, only: [:games]
 
   def last_game
+    # binding.pry
     unless current_user.nil? || current_user.games.empty?
       render :json => { id: current_user.games.order('updated_at').last.id }, status: :ok
     else
