@@ -2,7 +2,6 @@
 <nav>
   <ul>
     <li>Welcome <%= @current_user.username %></li>
-    <li><%= link_to 'My Games', '/game/show', method: :post %></li>
     <li>Top Score: 200</li> <!-- make this a link to all time top scores  -->
 
     <li class="right"><%= link_to 'Logout', 'logout', method: :post %></li>
