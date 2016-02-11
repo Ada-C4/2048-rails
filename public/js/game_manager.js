@@ -33,74 +33,55 @@ GameManager.prototype.isGameTerminated = function () {
 };
 
 GameManager.prototype.getUser = function() {
-  var user;
-  $.ajax({
+  return  $.ajax({
     type: "GET",
     url:"/get_user",
   })
-  .done(function(response) {
-    user = response;
-  });
-  console.log(user)
-  return user;
+  // .done(function(response) {
+  //   user = response;
+  // });
 }
 
 // Set up the game
 GameManager.prototype.setup = function(gameState) {
-  var user = this.getUser();
-  if (user == undefined) {
-    user = null;
-  }
-  var previousState;
-  // $.ajax({
-  //   type: "GET",
-  //   url:"/get_user",
-  // })
-  // .done(function(response) {
-  //
-  //   user = response;
-  // });
-
-  if (user){
+  var self = this
+  this.getUser().done(function(response) {
+    user = response;
     console.log(user)
+    if (user == undefined) {
+    user = null;
+    }
+    var previousState;
+
     if (gameState) {
       gameState = JSON.parse(gameState);
-      var previousState = gameState
+      previousState = gameState;
     } else {
-      var previousState = this.storageManager.getGameState();
+      console.log(self)
+      previousState = self.storageManager.getGameState();
     }
-  } else {
-    var previousState = null;
-  }
-  //console.log(previousState.grid)
   // Reload the game from a previous game if present
-  if (previousState) {
-    this.grid        = new Grid(previousState.grid.size,
+    if (previousState) {
+    self.grid        = new Grid(previousState.grid.size,
                                 previousState.grid.cells); // Reload grid
-    this.score       = previousState.score;
-    this.over        = previousState.over;
-    this.won         = previousState.won;
-    this.keepPlaying = previousState.keepPlaying;
-  } else {
-    this.grid        = new Grid(this.size);
-    this.score       = 0;
-    this.over        = false;
-    this.won         = false;
-    this.keepPlaying = false;
+    self.score       = previousState.score;
+    self.over        = previousState.over;
+    self.won         = previousState.won;
+    self.keepPlaying = previousState.keepPlaying;
+    } else {
+    self.grid        = new Grid(self.size);
+    self.score       = 0;
+    self.over        = false;
+    self.won         = false;
+    self.keepPlaying = false;
 
     // Add the initial tiles
-    this.addStartTiles();
-
-
-    // $.ajax({
-    //     type: "POST",
-    //     url:"/create_game",
-    //     data: {state: "this is working"},
-    //   });
-  }
+    self.addStartTiles();
+    }
 
   // Update the actuator
-  this.actuate();
+  self.actuate();
+  });
 };
 
 // Set up the initial tiles to start the game with
