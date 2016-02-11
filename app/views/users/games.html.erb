@@ -16,7 +16,7 @@
         <tr>
           <td><%= time_ago_in_words(game.updated_at) %> ago</td>
           <td><%= game.score ? game.score : "0" %></td>
-          <td>Load!</td>
+          <td class="past-game"><%= link_to "Load!", root_path(game_id: game.id) %></td>
         </tr>
       <% end %>
     </tbody>
