@@ -34,13 +34,14 @@ GameManager.prototype.isGameTerminated = function () {
 
 // Set up the game
 GameManager.prototype.setup = function(gameState) {
+  var user
   $.ajax({
-      type: "GET",
-      url:"/get_user",
-    })
+    type: "GET",
+    url:"/get_user",
+  })
 
   .done(function(response) {
-    var user = response;
+    user = response;
   });
   if (user){
     if (gameState) {
