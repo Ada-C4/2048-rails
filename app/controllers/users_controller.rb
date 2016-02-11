@@ -23,4 +23,8 @@ class UsersController < ApplicationController
       @completed_games = user.games.where(completed: true)
     end
   end
+
+  def leaderboard
+
+  end
 end
