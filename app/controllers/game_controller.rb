@@ -33,6 +33,7 @@ class GameController < ApplicationController
   		user = User.find(session[:user_id])
   		@games = user.games
   	end
+  	render :show, :layout => false
 	end
 
 	#delete an ongoing game

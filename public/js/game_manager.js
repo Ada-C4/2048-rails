@@ -16,9 +16,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 }
 
 GameManager.prototype.saveGameState = function () {
-  var currentState = this.storageManager.getGameState();
   // call the ajax for the update game
-  // console.log(this.storageManager.getGameState());
   var url = "/game",
       stringGameState = JSON.stringify(this.storageManager.getGameState());
   $.ajax(url, {
@@ -27,11 +25,22 @@ GameManager.prototype.saveGameState = function () {
     })
       .done(function(data) {
         // done code here
-        console.log("DONE!");
-        console.log(data);
+        console.log('Game saved');
+          // Update the load game div
+          console.log(this, data);
+          $.ajax('/games', {
+            type: "GET",
+          })
+            .done(function(htmlRes){
+              console.log('show user saved games: success!', htmlRes);
+              $('#saved-games').html(htmlRes);
+            })
+            .fail(function(){
+              console.log('show user saved games: fail', html);
+            });
       })
       .fail(function(data){
-        console.log("FAIL", data);
+        console.log("Fail to save game", data);
       });
 };
 

@@ -3,7 +3,6 @@ window.requestAnimationFrame(function () {
   var game = new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager);
   // Add click event handler for loading a game
 	$(document).ready(function() {
-		console.log('hello');
 		// Bind the load game handler to clicking each load link
 	  $('.loadGame').click(function(){
 	    var url = "/game/" + $(this).data().gameid;
@@ -17,21 +16,5 @@ window.requestAnimationFrame(function () {
 	        console.log("FAIL", data);
 	      });
 	  });
-
-	  // Update the load game div every 1 second
-	  setTimeout(function(){
-	  	console.log(this);
-	  	var loadUrl = 'abc';
-	  	$.ajax(loadUrl, {
-	  		type: "GET"
-	  	})
-	  		.done(function(){
-
-	  		})
-	  		.fail(function(){
-
-	  		});
-	  }, 1000);
-
 	});
 });
