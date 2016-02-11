@@ -58,25 +58,31 @@ RemoteStorageManager.prototype.getGameState = function () {
   //   }
   // });
   var userID = "1";
-  var gameID = "1";
-  var url = "/users/" + userID + "/game/" + gameID;
+  var gameID = "5";
+  var url = "/users/" + userID + "/game/" + gameID + ".json";
+  console.log(url);
   // $(document).ready(function(){
     $.ajax(url, {
-      method: "GET"
+      method: "GET",
+      async: false
     })
       .done(function(data) {
         console.log("DONE!");
         console.log(data);
         stateJSON = data;
       })
-      .fail(function(){
+      .fail(function(one, two, three){
+        console.log(one);
+        console.log(two);
+        console.log(three);
         console.log("fail");
       })
       .always(function(){
         console.log("always");
       });
   // var stateJSON = this.storage.getItem(this.gameStateKey);
-  return stateJSON ? JSON.parse(stateJSON) : null;
+  console.log(stateJSON);
+  return stateJSON;
 };
 
 RemoteStorageManager.prototype.setGameState = function (gameState) {

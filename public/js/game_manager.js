@@ -28,7 +28,7 @@ GameManager.prototype.save = function () {
     $.ajax({
       method: "POST",
       url: "/save",
-      data: {score: self.score, board_state: self.storageManager.getGameState(), lost: "false"}
+      data: {score: self.score, board_state: JSON.stringify(self.grid), lost: "false"}
     })
       .done(function(msg) {
         console.log("DONE!");
@@ -64,11 +64,12 @@ GameManager.prototype.isGameTerminated = function () {
 // Set up the game
 GameManager.prototype.setup = function () {
   var previousState = this.storageManager.getGameState();
+  console.log(previousState + "prev state");
 
   // Reload the game from a previous game if present
   if (previousState) {
-    this.grid        = new Grid(previousState.grid.size,
-                                previousState.grid.cells); // Reload grid
+    this.grid        = new Grid(previousState.size,
+                                previousState.cells); // Reload grid
     this.score       = previousState.score;
     this.over        = previousState.over;
     this.won         = previousState.won;
