@@ -19,7 +19,7 @@ class GamesController < ApplicationController
 
   def save
     @game = Game.new(
-      grid: params["grid"],
+      gamestate: params,
       score: params["score"],
       over: params["over"],
       won: params["won"],

@@ -24,13 +24,13 @@ GameManager.prototype.restart = function () {
 
 //method added by AD
 GameManager.prototype.save = function () {
-    var stateOfGame = this.storageManager.storage.gameState;
+    var stateOfGame = this.serialize();
     var url = "http://localhost:3000/games/save"
 
     $.ajax({
       method: "POST",
       url: url,
-      data: JSON.parse(stateOfGame)
+      data: JSON.stringify(stateOfGame)
     })
       .done(function() {
         console.log("success");
@@ -41,7 +41,7 @@ GameManager.prototype.save = function () {
 };
 
 GameManager.prototype.resume = function () {
-  var self = this; 
+  var self = this;
   console.log("clicking");
   var id = $('.resume-button').attr("data-val");
   var url = "http://localhost:3000/games/" + id;
