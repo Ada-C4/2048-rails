@@ -10,14 +10,12 @@ class GamesController < ApplicationController
 
   def set_score
     @current_user = current_user
-    respond_to do |format|
-      format.json do
-        user_id = @current_user.id
-        best_score = params[:bestScore]
-        user = User.find(user_id)
-        user.best_score = best_score
-      end
-    end
+    user_id = @current_user.id
+    best_score = params[:bestScore]
+    user = User.find(user_id)
+    user.best_score = best_score
+    user.save
+    render json: [@current_user, user.best_score]
   end
 
   def report_score

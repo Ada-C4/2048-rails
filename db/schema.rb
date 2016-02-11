@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208234326) do
+ActiveRecord::Schema.define(version: 20160211184647) do
 
   create_table "games", force: :cascade do |t|
     t.string   "state"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160208234326) do
     t.string   "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "best_score"
   end
 
 end

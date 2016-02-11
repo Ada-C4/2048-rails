@@ -36,18 +36,14 @@ GameManager.prototype.getUser = function() {
   return  $.ajax({
     type: "GET",
     url:"/get_user",
-  })
-  // .done(function(response) {
-  //   user = response;
-  // });
-}
+  });
+};
 
 // Set up the game
 GameManager.prototype.setup = function(gameState) {
-  var self = this
+  var self = this;
   this.getUser().done(function(response) {
     user = response;
-    console.log(user)
     if (user == undefined) {
     user = null;
     }
@@ -57,7 +53,6 @@ GameManager.prototype.setup = function(gameState) {
       gameState = JSON.parse(gameState);
       previousState = gameState;
     } else {
-      console.log(self)
       previousState = self.storageManager.getGameState();
     }
   // Reload the game from a previous game if present

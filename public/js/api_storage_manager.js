@@ -45,7 +45,22 @@ ApiStorageManager.prototype.getBestScore = function () {
 };
 
 ApiStorageManager.prototype.setBestScore = function (score) {
-  this.storage.setItem(this.bestScoreKey, score);
+  var self = this;
+  $.ajax({
+    type: "GET",
+    url:"/get_user",
+  })
+  .done(function(response) {
+    self.storage.setItem(self.bestScoreKey, score);
+    $.ajax({
+      type: "POST",
+      url:"/set_score",
+      data: { bestScore: score }
+    })
+    .done(function(response) {
+      console.log("it worked");
+    });
+  });
 };
 
 // Game state getters/setters and clearing
