@@ -11,7 +11,7 @@ class GameController < ApplicationController
 	  if session[:game_id]
       # update game
       game = Game.find(session[:game_id])
-	  	game.update(gamestate: params[:gamestate], game_over: params[:gamestate][:over])
+	  	game.update(gamestate: params[:gamestate], game_over: JSON.parse(params[:gamestate])["over"])
 	  else
 	  	# create game
 	  	game = Game.create(user_id: session[:user_id], gamestate: params[:gamestate], game_over: JSON.parse(params[:gamestate])["over"])

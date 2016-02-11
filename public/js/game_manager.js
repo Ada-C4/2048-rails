@@ -42,9 +42,6 @@ GameManager.prototype.restart = function () {
   this.setup();
 };
 
-
-
-
 // Keep playing after winning (allows going over 2048)
 GameManager.prototype.keepPlaying = function () {
   this.keepPlaying = true;
@@ -64,11 +61,9 @@ GameManager.prototype.isGameTerminated = function () {
 // Set up the game
 GameManager.prototype.setup = function (loadedGame) {
   var previousState;
-  goodLoadedGame = {"grid":{"size":4,"cells":[[{"position":{"x":0,"y":0},"value":4},{"position":{"x":0,"y":1},"value":8},{"position":{"x":0,"y":2},"value":4},{"position":{"x":0,"y":3},"value":2}],[{"position":{"x":1,"y":0},"value":2},{"position":{"x":1,"y":1},"value":4},{"position":{"x":1,"y":2},"value":2},{"position":{"x":1,"y":3},"value":8}],[{"position":{"x":2,"y":0},"value":8},null,null,null],[null,null,null,{"position":{"x":3,"y":3},"value":2}]]},"score":52,"over":false,"won":false,"keepPlaying":false};
   if (!loadedGame){
     previousState = this.storageManager.getGameState();  
   } else {
-    console.log(loadedGame, goodLoadedGame);
     previousState = JSON.parse(loadedGame);
     // previousState = loadedGame;
   }

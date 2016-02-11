@@ -4,9 +4,7 @@ window.requestAnimationFrame(function () {
   // Add click event handler for loading a game
 	$(document).ready(function() {
 	  $('.loadGame').click(function(){
-	  	console.log('clicked!');
 	    var url = "/game/" + $(this).data().gameid;
-	    console.log(url);
 	    $.ajax(url, {
 	      type: "POST"
 	    })
