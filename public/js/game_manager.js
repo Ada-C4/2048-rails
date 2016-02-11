@@ -13,17 +13,17 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
   this.setup();
 
-  // call the rails route that saves a new instace of the game
 }
 
 GameManager.prototype.saveGameState = function () {
   var currentState = this.storageManager.getGameState();
   // call the ajax for the update game
   // console.log(this.storageManager.getGameState());
-  var url = "/game";
+  var url = "/game",
+      stringGameState = JSON.stringify(this.storageManager.getGameState());
   $.ajax(url, {
       type: "POST",
-      data: {"gamestate" : this.storageManager.getGameState()},
+      data: {"gamestate" : stringGameState},
     })
       .done(function(data) {
         // done code here
@@ -59,9 +59,14 @@ GameManager.prototype.isGameTerminated = function () {
 };
 
 // Set up the game
-GameManager.prototype.setup = function () {
-  var previousState = this.storageManager.getGameState();
-
+GameManager.prototype.setup = function (loadedGame) {
+  var previousState;
+  if (!loadedGame){
+    previousState = this.storageManager.getGameState();  
+  } else {
+    previousState = JSON.parse(loadedGame);
+    // previousState = loadedGame;
+  }
   // Reload the game from a previous game if present
    if (previousState) {
     this.grid        = new Grid(previousState.grid.size,

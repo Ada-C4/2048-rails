@@ -11,16 +11,23 @@ class GameController < ApplicationController
 	  if session[:game_id]
       # update game
       game = Game.find(session[:game_id])
-	  	game.update(gamestate: params[:gamestate], game_over: params[:gamestate][:over])
+	  	game.update(gamestate: params[:gamestate], game_over: JSON.parse(params[:gamestate])["over"])
 	  else
 	  	# create game
-			binding.pry
-	  	game = Game.create(user_id: session[:user_id], gamestate: params[:gamestate], game_over: params[:gamestate][:over], score: params[:gamestate][:score])
+	  	game = Game.create(user_id: session[:user_id], gamestate: params[:gamestate], game_over: JSON.parse(params[:gamestate])["over"])
 	  	# add new game id to the session
 	  	session[:game_id] = game.id
 	  end
-    @games = Game.where(user_id: session[:user_id])
-	  render :json => game
+	  render :json => game, status: :ok
 	end
+
+	# load a saved game
+	def load
+		game = Game.find(params[:id])
+		render :json =>  { gamestate: game.gamestate, status: :ok }
+	end
+
+	#delete an ongoing game
+
 
 end
