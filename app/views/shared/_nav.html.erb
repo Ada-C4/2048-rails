@@ -16,7 +16,10 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.username %><span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="/games"><%= current_user.username.split(' ')[0].titlecase %>'s Games</a></li>
+              <li><%= current_user.username.split(' ')[0].titlecase %>'s Games</li>
+              <% @games.each do |game| %>
+              <li><%= link_to "Game", game_path(game.id), class: "resume-button" %></li>
+              <% end %>
               <li role="separator" class="divider"></li>
               <li><%= link_to "Logout", logout_path, method: :delete %></li>
             </ul>
