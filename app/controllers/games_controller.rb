@@ -18,6 +18,7 @@ class GamesController < ApplicationController
 
 
   def save
+    binding.pry
     @game = Game.new(
       gamestate: params,
       score: params["score"],
