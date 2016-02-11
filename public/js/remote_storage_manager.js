@@ -6,11 +6,8 @@ function RemoteStorageManager(game) {
 
 // Best score getters/setters
 RemoteStorageManager.prototype.getBestScore = function () {
-  // return this.storage.getItem(this.bestScoreKey) || 0;
-  // make an API call and return the best score from the JSON
-  // return something || 0
-
-  return "1000";
+  var url = "bestscore/" + this.gameID;
+  return $.ajax(url, {});
 };
 
 RemoteStorageManager.prototype.setBestScore = function (score) {

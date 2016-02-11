@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   # get 'users' => 'users#current_user'
   get 'users' => 'users#last_game'
   get 'users/:id/games' => 'users#games', as: :user_games
+
+  get 'bestscore/:id' => 'users#get_best_score'
+  post 'bestscore/:id' => 'users#set_best_score'
+
   get 'leaderboard' => 'users#leaderboard', as: :leaderboard
 
 end

@@ -18,8 +18,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.best_players
-    
+  # def self.best_players
+  #
+  # end
+
+  def best_score
+    games = self.games
+    best_game = games.order(score: :desc).first
+    return best_game.score
   end
 
 end
