@@ -1,4 +1,13 @@
 @import url(fonts/clear-sans.css);
+
+.user-id {
+  display: none;
+}
+
+.game-id {
+  display: none;
+}
+
 html, body {
   margin: 0;
   padding: 0;

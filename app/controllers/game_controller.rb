@@ -23,6 +23,8 @@ class GameController < ApplicationController
         end
       }
       format.html {
+        @user_id = current_user.id
+        @game_id = params[:id]
         render template: "site/index"
       }
     end
