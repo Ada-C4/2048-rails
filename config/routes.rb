@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback' => 'sessions#create', as: :auth
 
   post '/games/save' => 'games#save'
-  resources :games, only: [:index, :update, :destroy, :show]
+  resources :games, only: [:index, :update, :destroy]
+  post '/games/:id' => 'games#show'
   get '/leaderboard' => 'games#leaderboard'
 
 end

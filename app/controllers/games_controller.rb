@@ -2,32 +2,35 @@ class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @games = current_user.games.order(:created_at).reverse
+    if current_user
+      @games = current_user.games.order(:created_at).reverse
+    end
   end
 
   def show
     #this is the method that will do something to game manager and make
     #game manager do a get call, and this method will render the json
     # call method in games.coffee, it will call game manager
-    @game = Game.find(params[:id])
+    game = Game.find(params[:id])
 
-    render :json => @game.as_json, :status => :ok
+    render :json => game.as_json(except: [:created_at, :updated_at]), :status => :ok
   end
 
 
   def save
     @game = Game.new(
-      gamestate: params["grid"],
+      grid: params["grid"],
       score: params["score"],
       over: params["over"],
       won: params["won"],
       keepplaying: params["keepPlaying"],
     )
-    current_user.games << @game
     @game.user_id = current_user.id
+
+    current_user.games << @game
     @game.save
 
-     if game.save
+    if @game.save
       render :json => [], status: 200
     else
       render :json => [], status: :no_content

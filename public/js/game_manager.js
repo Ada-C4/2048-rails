@@ -46,12 +46,20 @@ GameManager.prototype.resume = function () {
   var id = $('.resume-button').attr("data-val");
   var url = "http://localhost:3000/games/" + id;
 
-  window.location.href = 'http://localhost:3000/?gid=' + id;
-
-  $.ajax(url)
-    .done(function(data) {
-      self.loadGame(data);
-  });
+  $.ajax({
+      method: "POST",
+      url: url,
+    })
+      .done(function(url) {
+        console.log("success");
+        console.log(url);
+          self.storageManager.clearGameState();
+          self.actuator.continueGame(); // Clear the game won/lost message
+          self.loadGame(url)
+      })
+      .fail(function() {
+        console.log("failure");
+      });
 };
 
 //written by AD- this will do the same thing as restarting only send
@@ -76,7 +84,6 @@ GameManager.prototype.loadGame = function (game) {
   this.actuate();
 
 };
-
 
 // Keep playing after winning (allows going over 2048)
 GameManager.prototype.keepPlaying = function () {

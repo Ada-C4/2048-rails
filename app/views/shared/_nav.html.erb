@@ -18,7 +18,7 @@
             <ul class="dropdown-menu">
               <li><%= current_user.username.split(' ')[0].titlecase %>'s Games</li>
               <% @games.each do |game| %>
-              <li><%= link_to "Game", game_path(game.id), class: "resume-button" %></li>
+                <li><button class="resume-button" data-val=<%= game.id %>>Game, Score: <%= game.score %></button></li>
               <% end %>
               <li role="separator" class="divider"></li>
               <li><%= link_to "Logout", logout_path, method: :delete %></li>

@@ -47,7 +47,7 @@ KeyboardInputManager.prototype.listen = function () {
     68: 1, // D
     83: 2, // S
     65: 3, // A
-    84: 1  // T
+    84: 0  // T
 
   };
 
