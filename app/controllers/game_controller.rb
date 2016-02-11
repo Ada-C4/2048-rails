@@ -29,4 +29,11 @@ class GameController < ApplicationController
       }
     end
   end
+
+
+  def index
+    @username = current_user.name
+    @games = current_user.games
+  end
+
 end
