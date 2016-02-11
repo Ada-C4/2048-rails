@@ -24,4 +24,9 @@ class UsersController < ApplicationController
       @completed_games = user.games.where(completed: true)
     end
   end
+
+  def leaderboard
+    @best_games = Game.best_games
+    # @best_players = User.something
+  end
 end

@@ -18,4 +18,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.best_players
+    
+  end
+
 end

@@ -22,6 +22,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # auth with facebook
 gem 'omniauth-facebook'
+gem 'font-awesome-sass'
 
 gem 'dotenv-rails', :groups => [:development, :test]
 
