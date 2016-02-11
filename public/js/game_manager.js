@@ -11,6 +11,8 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
   this.inputManager.on("saveGameState", this.saveGameState.bind(this));
 
+  this.save = document.querySelector(".save");
+
   this.setup();
 
 }
@@ -53,6 +55,12 @@ GameManager.prototype.saveGameState = function () {
       .fail(function(data){
         console.log("Fail to save game", data);
       });
+      var newDiv = document.createElement("div");
+      console.log("this: " + typeof(this));
+      newDiv.classList.add("score-addition");
+      newDiv.textContent = "saved!";
+
+      this.save.appendChild(newDiv);
 };
 
 // Restart the game
@@ -82,7 +90,7 @@ GameManager.prototype.isGameTerminated = function () {
 GameManager.prototype.setup = function (loadedGame) {
   var previousState;
   if (!loadedGame){
-    previousState = this.storageManager.getGameState();  
+    previousState = this.storageManager.getGameState();
   } else {
     previousState = JSON.parse(loadedGame);
     // previousState = loadedGame;
