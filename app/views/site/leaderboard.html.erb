@@ -1,9 +1,22 @@
-<h1>Leaderboard</h1>
-<ol>
-  <% @games.each do |game| %>
-    <li>
-      <%= game.score %>
-      <%= game.user.name %>
-    </li>
-  <% end %>
-</ol>
+<%= render "shared/nav" %>
+
+<h1 class="leaderboard-header">Leaderboard</h1>
+
+<div class= "leaderboard">
+  <table>
+    <tr>
+      <th>Rank</th>
+      <th>Score</th>
+      <th>Name</th>
+    </tr>
+    <% num = 1 %>
+    <% @games.each do |game| %>
+      <tr>
+        <td class="rank"><%= num %></td>
+        <td class="score"><%= game.score %></td>
+        <td class="name"><%= game.user.name %></td>
+      </tr>
+      <% num += 1 %>
+    <% end %>
+  </table>
+</div>
