@@ -45,7 +45,7 @@ class GamesController < ApplicationController
   def destroy
     id = params[:id]
     Game.destroy(id)
-    redirect_to games_path
+    redirect_to root_route
   end
 
   def leaderboard
