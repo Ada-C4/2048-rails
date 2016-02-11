@@ -11,10 +11,10 @@ class GameController < ApplicationController
 	  if session[:game_id]
       # update game
       game = Game.find(session[:game_id])
-	  	game.update(gamestate: params[:gamestate], game_over: JSON.parse(params[:gamestate])["over"])
+	  	game.update(gamestate: params[:gamestate], game_over: JSON.parse(params[:gamestate])["over"], score: JSON.parse(params[:gamestate])["score"])
 	  else
 	  	# create game
-	  	game = Game.create(user_id: session[:user_id], gamestate: params[:gamestate], game_over: JSON.parse(params[:gamestate])["over"])
+	  	game = Game.create(user_id: session[:user_id], gamestate: params[:gamestate], game_over: JSON.parse(params[:gamestate])["over"], score: JSON.parse(params[:gamestate])["score"])
 	  	# add new game id to the session
 	  	session[:game_id] = game.id
 	  end
@@ -24,7 +24,7 @@ class GameController < ApplicationController
 	# load a saved game
 	def load
 		game = Game.find(params[:id])
-		render :json =>  { gamestate: game.gamestate, status: :ok }
+		render :json =>  { gamestate: game.gamestate, score: game.score, status: :ok }
 	end
 
 	#delete an ongoing game
