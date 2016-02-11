@@ -74,7 +74,7 @@ KeyboardInputManager.prototype.listen = function () {
       self.save.call(self, event);
     }
 
-    //T key saves the game
+    //T key resumes the game
     if (!modifiers && event.which === 84) {
       self.resume.call(self, event);
     }
@@ -166,8 +166,6 @@ KeyboardInputManager.prototype.keepPlaying = function (event) {
 
 KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
   var button = document.querySelector(selector);
-  if (button != null) {
-    button.addEventListener("click", fn.bind(this));
-    button.addEventListener(this.eventTouchend, fn.bind(this));
-  };
+  button.addEventListener("click", fn.bind(this));
+  button.addEventListener(this.eventTouchend, fn.bind(this));
 };
