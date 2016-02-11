@@ -14,11 +14,11 @@ class GameController < ApplicationController
 	  	game.update(gamestate: params[:gamestate], game_over: params[:gamestate][:over])
 	  else
 	  	# create game
-	  	game = Game.create(user_id: session[:user_id], gamestate: params[:gamestate], game_over: params[:gamestate][:over])
+	  	game = Game.create(user_id: session[:user_id], gamestate: params[:gamestate], game_over: JSON.parse(params[:gamestate])["over"])
 	  	# add new game id to the session
 	  	session[:game_id] = game.id
 	  end
-	  render :json => game
+	  render :json => game, status: :ok
 	end
 
 	# load a saved game

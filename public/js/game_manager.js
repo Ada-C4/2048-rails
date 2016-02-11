@@ -19,10 +19,11 @@ GameManager.prototype.saveGameState = function () {
   var currentState = this.storageManager.getGameState();
   // call the ajax for the update game
   // console.log(this.storageManager.getGameState());
-  var url = "/game";
+  var url = "/game",
+      stringGameState = JSON.stringify(this.storageManager.getGameState());
   $.ajax(url, {
       type: "POST",
-      data: {"gamestate" : this.storageManager.getGameState()},
+      data: {"gamestate" : stringGameState},
     })
       .done(function(data) {
         // done code here
@@ -63,11 +64,17 @@ GameManager.prototype.isGameTerminated = function () {
 // Set up the game
 GameManager.prototype.setup = function (loadedGame) {
   var previousState;
-  loadedGame = {"grid":{"size":4,"cells":[[{"position":{"x":0,"y":0},"value":4},{"position":{"x":0,"y":1},"value":8},{"position":{"x":0,"y":2},"value":4},{"position":{"x":0,"y":3},"value":2}],[{"position":{"x":1,"y":0},"value":2},{"position":{"x":1,"y":1},"value":4},{"position":{"x":1,"y":2},"value":2},{"position":{"x":1,"y":3},"value":8}],[{"position":{"x":2,"y":0},"value":8},null,null,null],[null,null,null,{"position":{"x":3,"y":3},"value":2}]]},"score":52,"over":false,"won":false,"keepPlaying":false};
+  goodLoadedGame = {"grid":{"size":4,"cells":[[{"position":{"x":0,"y":0},"value":4},{"position":{"x":0,"y":1},"value":8},{"position":{"x":0,"y":2},"value":4},{"position":{"x":0,"y":3},"value":2}],[{"position":{"x":1,"y":0},"value":2},{"position":{"x":1,"y":1},"value":4},{"position":{"x":1,"y":2},"value":2},{"position":{"x":1,"y":3},"value":8}],[{"position":{"x":2,"y":0},"value":8},null,null,null],[null,null,null,{"position":{"x":3,"y":3},"value":2}]]},"score":52,"over":false,"won":false,"keepPlaying":false};
   if (!loadedGame){
     previousState = this.storageManager.getGameState();  
   } else {
-    previousState = loadedGame;
+    parsedLoadedGame = JSON.parse(loadedGame.replace(/(=>)+/g, ":"));
+    parsedLoadedGame.over = parsedLoadedGame.over === "true";
+    parsedLoadedGame.won = parsedLoadedGame.won === "true";
+    parsedLoadedGame.keepPlaying = parsedLoadedGame.keepPlaying === "true";
+    console.log(parsedLoadedGame, goodLoadedGame);
+    previousState = parsedLoadedGame;
+    // previousState = loadedGame;
   }
   // Reload the game from a previous game if present
    if (previousState) {
