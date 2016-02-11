@@ -58,7 +58,36 @@ window.requestAnimationFrame(function () {
         data: {user_id: data.id}
       })
       .done(function(response) {
-          $("#game-list").append("<li><a class='load_game_button' data-id="+ response[(response.length)-1].id + "href='javascript:void(0)'>" + response[(response.length)-1].created_at + "</a></li>");
+        var $added = $("<li><a class='load_game_button' data-id='"+ response[(response.length)-1].id + "' href='javascript:void(0)'>" + response[(response.length)-1].created_at + "</a></li>").appendTo($("#game-list"));
+          //var added = $("#game-list").append("<li><a class='load_game_button' data-id="+ response[(response.length)-1].id + "href='javascript:void(0)'>" + response[(response.length)-1].created_at + "</a></li>");
+          //var $link = $('.load_game_button[data-id="' + response[(response.length)-1].id + '"]')
+        $added.click(function() {
+          var id = this.children[0].attributes[1].value
+          $.ajax({
+            method: "GET",
+            url: "/retrieve_game",
+            data: {game_id: id}
+          })
+          .done(function(response) {
+            console.log(response.state);
+            game.setup(response.state);
+          });
+        })
+
+          // $(".load_game_button").click(function(){
+          //   // needs game id, and call setup(state)
+          //   console.log(this.attributes[1].value)
+          //   var id = this.attributes[1].value;
+          //   $.ajax({
+          //     method: "GET",
+          //     url: "/retrieve_game",
+          //     data: {game_id: id}
+          //   })
+          //   .done(function(response) {
+          //     console.log(response.state);
+          //     game.setup(response.state);
+          //   });
+
       });
     });
 
