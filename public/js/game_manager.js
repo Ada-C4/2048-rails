@@ -33,55 +33,40 @@ GameManager.prototype.isGameTerminated = function () {
 };
 
 GameManager.prototype.getUser = function() {
-  var user;
-  $.ajax({
+  return  $.ajax({
     type: "GET",
     url:"/get_user",
   })
-  .done(function(response) {
-    user = response;
-  });
-  console.log(user)
-  return user;
+  // .done(function(response) {
+  //   user = response;
+  // });
 }
 
 // Set up the game
 GameManager.prototype.setup = function(gameState) {
-  var user = this.getUser();
-  if (user == undefined) {
-    user = null;
-  }
-  var previousState;
-  // $.ajax({
-  //   type: "GET",
-  //   url:"/get_user",
-  // })
-  // .done(function(response) {
-  //
-  //   user = response;
-  // });
 
-  if (user){
-    console.log(user)
+  this.getUser().done(function(response) {
+    user = response;
+    if (user == undefined) {
+    user = null;
+    }
+    var previousState;
+
     if (gameState) {
       gameState = JSON.parse(gameState);
-      var previousState = gameState
+      previousState = gameState;
     } else {
-      var previousState = this.storageManager.getGameState();
+      previousState = this.storageManager.getGameState();
     }
-  } else {
-    var previousState = null;
-  }
-  //console.log(previousState.grid)
   // Reload the game from a previous game if present
-  if (previousState) {
+    if (previousState) {
     this.grid        = new Grid(previousState.grid.size,
                                 previousState.grid.cells); // Reload grid
     this.score       = previousState.score;
     this.over        = previousState.over;
     this.won         = previousState.won;
     this.keepPlaying = previousState.keepPlaying;
-  } else {
+    } else {
     this.grid        = new Grid(this.size);
     this.score       = 0;
     this.over        = false;
@@ -90,17 +75,11 @@ GameManager.prototype.setup = function(gameState) {
 
     // Add the initial tiles
     this.addStartTiles();
-
-
-    // $.ajax({
-    //     type: "POST",
-    //     url:"/create_game",
-    //     data: {state: "this is working"},
-    //   });
-  }
+    }
 
   // Update the actuator
   this.actuate();
+  });
 };
 
 // Set up the initial tiles to start the game with
