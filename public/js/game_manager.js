@@ -44,9 +44,10 @@ GameManager.prototype.getUser = function() {
 
 // Set up the game
 GameManager.prototype.setup = function(gameState) {
-
+  var self = this
   this.getUser().done(function(response) {
     user = response;
+    console.log(user)
     if (user == undefined) {
     user = null;
     }
@@ -56,29 +57,30 @@ GameManager.prototype.setup = function(gameState) {
       gameState = JSON.parse(gameState);
       previousState = gameState;
     } else {
-      previousState = this.storageManager.getGameState();
+      console.log(self)
+      previousState = self.storageManager.getGameState();
     }
   // Reload the game from a previous game if present
     if (previousState) {
-    this.grid        = new Grid(previousState.grid.size,
+    self.grid        = new Grid(previousState.grid.size,
                                 previousState.grid.cells); // Reload grid
-    this.score       = previousState.score;
-    this.over        = previousState.over;
-    this.won         = previousState.won;
-    this.keepPlaying = previousState.keepPlaying;
+    self.score       = previousState.score;
+    self.over        = previousState.over;
+    self.won         = previousState.won;
+    self.keepPlaying = previousState.keepPlaying;
     } else {
-    this.grid        = new Grid(this.size);
-    this.score       = 0;
-    this.over        = false;
-    this.won         = false;
-    this.keepPlaying = false;
+    self.grid        = new Grid(self.size);
+    self.score       = 0;
+    self.over        = false;
+    self.won         = false;
+    self.keepPlaying = false;
 
     // Add the initial tiles
-    this.addStartTiles();
+    self.addStartTiles();
     }
 
   // Update the actuator
-  this.actuate();
+  self.actuate();
   });
 };
 
