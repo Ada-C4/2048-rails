@@ -20,7 +20,9 @@ GameManager.prototype.restart = function () {
     .done(function(newGame) {
       console.log(newGame);
       self.storageManager.updating = false;
-      self.storageManager.gameID = newGame.id;
+      if (newGame) {
+        self.storageManager.gameID = newGame.id;
+      }
       self.actuator.continueGame(); // Clear the game won/lost message
       self.setup();
     });
