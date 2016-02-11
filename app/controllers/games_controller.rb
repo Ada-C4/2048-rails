@@ -18,7 +18,6 @@ class GamesController < ApplicationController
 
 
   def save
-    binding.pry
     @game = Game.new(
       gamestate: params["data"],
       score: JSON.parse(params["data"])["score"],
