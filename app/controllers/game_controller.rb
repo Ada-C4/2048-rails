@@ -27,6 +27,14 @@ class GameController < ApplicationController
 		render :json =>  { gamestate: game.gamestate, status: :ok }
 	end
 
+	# show all saved games for a user
+	def show
+		if session[:user_id]
+  		user = User.find(session[:user_id])
+  		@games = user.games
+  	end
+	end
+
 	#delete an ongoing game
 
 
