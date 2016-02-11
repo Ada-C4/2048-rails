@@ -16,22 +16,45 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 }
 
 GameManager.prototype.saveGameState = function () {
-  var currentState = this.storageManager.getGameState();
   // call the ajax for the update game
-  // console.log(this.storageManager.getGameState());
   var url = "/game",
-      stringGameState = JSON.stringify(this.storageManager.getGameState());
+      stringGameState = JSON.stringify(this.storageManager.getGameState()),
+      game = this;
+  function loadGameClickHandler(){
+    var url = "/game/" + $(this).data().gameid;
+    $.ajax(url, {
+      type: "POST"
+    })
+      .done(function(data) {
+        game.setup(data.gamestate);
+      })
+      .fail(function(data){
+        console.log("FAIL", data);
+      });
+  }
   $.ajax(url, {
       type: "POST",
       data: {"gamestate" : stringGameState},
     })
       .done(function(data) {
         // done code here
-        console.log("DONE!");
-        console.log(data);
+        console.log('Game saved');
+          // Update the load game div
+          console.log(this, data);
+          $.ajax('/games', {
+            type: "GET",
+          })
+            .done(function(htmlRes){
+              $('#saved-games').html(htmlRes);
+              // bind load game handler to loadgame links
+              $('.loadGame').click(loadGameClickHandler);
+            })
+            .fail(function(){
+              console.log('show user saved games: fail', html);
+            });
       })
       .fail(function(data){
-        console.log("FAIL", data);
+        console.log("Fail to save game", data);
       });
 };
 

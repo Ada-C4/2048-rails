@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get '/game' => "game#new", as: :new
 
+  get '/games' => "game#show", as: :show
+
   post '/game/:id' => "game#load", as: :load
 
 end

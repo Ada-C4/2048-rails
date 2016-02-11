@@ -76,14 +76,7 @@
 
       </div>
     </div>
-    <p class="game-explanation">
-    <% if @games %>
-      <ul>Your saved games:
-      <% @games.each do |game| %>
-        <li><a class="loadGame" data-gameID="<%= game.id %>">Load saved game:</a> <%= game.updated_at.to_formatted_s(:long) %></li>
-      <% end %>
-      </ul>
-    <% end %>
+    <p class="game-explanation" id="saved-games">
     </p>
 
     <p class="game-explanation">
