@@ -46,7 +46,9 @@ KeyboardInputManager.prototype.listen = function () {
     87: 0, // W
     68: 1, // D
     83: 2, // S
-    65: 3  // A
+    65: 3, // A
+    84: 1  // T
+
   };
 
   // Respond to direction keys
@@ -70,6 +72,11 @@ KeyboardInputManager.prototype.listen = function () {
     //S key saves the game
     if (!modifiers && event.which === 83) {
       self.save.call(self, event);
+    }
+
+    //T key saves the game
+    if (!modifiers && event.which === 84) {
+      self.resume.call(self, event);
     }
   });
 

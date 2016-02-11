@@ -11,13 +11,13 @@ class GamesController < ApplicationController
     # call method in games.coffee, it will call game manager
     @game = Game.find(params[:id])
 
-    render :json => @game.as_json(except: [:created_at, :updated_at]), :status => :ok    
+    render :json => @game.as_json, :status => :ok
   end
 
 
   def save
     @game = Game.new(
-      gamestate: params,
+      gamestate: params["grid"],
       score: params["score"],
       over: params["over"],
       won: params["won"],
@@ -27,7 +27,11 @@ class GamesController < ApplicationController
     @game.user_id = current_user.id
     @game.save
 
-    render json: [], status: 200
+     if game.save
+      render :json => [], status: 200
+    else
+      render :json => [], status: :no_content
+    end
   end
 
   def update

@@ -46,6 +46,8 @@ GameManager.prototype.resume = function () {
   var id = $('.resume-button').attr("data-val");
   var url = "http://localhost:3000/games/" + id;
 
+  window.location.href = 'http://localhost:3000/?gid=' + id;
+
   $.ajax(url)
     .done(function(data) {
       self.loadGame(data);
@@ -53,16 +55,25 @@ GameManager.prototype.resume = function () {
 };
 
 //written by AD- this will do the same thing as restarting only send
-GameManager.prototype.loadGame = function () {
-  this.storageManager.clearGameState();
-  this.actuator.continueGame(); // Clear the game won/lost message
-  //makes ajax get request to game/:id. passes that game to .setup
-  // this.setup();
-  // $ajax.
-  // GEt
-  // blahblahc
-  // "games/2"
-  // this.setup(the thing that comes from ajax)
+GameManager.prototype.loadGame = function (game) {
+  var previousState = game;
+
+  if (previousState) {
+    this.grid        = new Grid(Number(previousState.grid.size), previousState.grid.cells);
+    this.score       = previousState.score;
+    this.over        = previousState.over;
+    this.won         = previousState.won;
+    this.keepPlaying = previousState.keepPlaying;
+  } else {
+    this.grid        = new Grid(this.size);
+    this.score       = 0;
+    this.over        = false;
+    this.won         = false;
+    this.keepPlaying = false;
+
+    this.addStartTiles();
+  }
+  this.actuate();
 
 };
 
