@@ -34,6 +34,13 @@ class GamesController < ApplicationController
     end
   end
 
+  def destroy
+    game = Game.find(params[:id])
+    user_id = User.find(game.user_id)
+    game.destroy
+    redirect_to user_games_path(id: user_id)
+  end
+
   def game_params
     params.permit(:state, :won, :completed, :score)
   end
