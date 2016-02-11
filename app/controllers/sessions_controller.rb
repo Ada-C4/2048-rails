@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     auth_hash = request.env['omniauth.auth']
     if auth_hash["uid"]
       @user = User.find_or_create_from_omniauth(auth_hash)
-      @user.games << Game.create(score: 0, won: false, completed: false)
+      @user.games << Game.create(score: 0, won: false, completed: false) if @user.games.empty?
       if @user
         session[:user_id] = @user.id
         redirect_to root_path
