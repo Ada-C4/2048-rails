@@ -82,6 +82,7 @@ RemoteStorageManager.prototype.getGameState = function () {
       });
   // var stateJSON = this.storage.getItem(this.gameStateKey);
   console.log(stateJSON);
+  stateJSON.board_state = JSON.parse(stateJSON.board_state);
   return stateJSON;
 };
 

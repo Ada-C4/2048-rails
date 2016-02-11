@@ -68,8 +68,8 @@ GameManager.prototype.setup = function () {
 
   // Reload the game from a previous game if present
   if (previousState) {
-    this.grid        = new Grid(previousState.size,
-                                previousState.cells); // Reload grid
+    this.grid        = new Grid(previousState.board_state.size,
+                                previousState.board_state.cells); // Reload grid
     this.score       = previousState.score;
     this.over        = previousState.over;
     this.won         = previousState.won;

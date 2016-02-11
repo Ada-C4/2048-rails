@@ -16,7 +16,7 @@ class GameController < ApplicationController
       format.json {
         game = Game.find_by(id: params[:id])
         if game
-          render :json => game.board_state.as_json(except: [:created_at, :updated_at]), :status => :ok
+          render :json => game.as_json(except: [:created_at, :updated_at]), :status => :ok
         else
         # the request itself was fine, but there was just no content associated with the response, so use status code 204
           render :json => [], :status => 204
