@@ -108,18 +108,27 @@ GameManager.prototype.actuate = function () {
     }
   }
 
+  if (this.storageManager.gameID) {
+    this.storageManager.getBestScore().done(function(score) {
+      var best = self.score > score.bestScore ? self.score : score.bestScore;
 
-  this.storageManager.getBestScore().done(function(score) {
+      self.actuator.actuate(self.grid, {
+        score:      self.score,
+        over:       self.over,
+        won:        self.won,
+        bestScore:  best,
+        terminated: self.isGameTerminated()
+      });
+    });
+  } else {
     self.actuator.actuate(self.grid, {
       score:      self.score,
       over:       self.over,
       won:        self.won,
-      bestScore:  score.bestScore,
+      bestScore:  self.score,
       terminated: self.isGameTerminated()
     });
-  });
-
-
+  }
 };
 
 // Represent the current game as an object
