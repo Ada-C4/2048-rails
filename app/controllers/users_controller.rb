@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   end
 
   def leaderboard
-
+    @best_games = Game.best_games
+    # @best_players = User.something
   end
 end
