@@ -8,6 +8,29 @@ class GamesController < ApplicationController
     render json: @current_user
   end
 
+  def set_score
+    @current_user = current_user
+    respond_to do |format|
+      format.json do
+        user_id = @current_user.id
+        best_score = params[:bestScore]
+        user = User.find(user_id)
+        user.best_score = best_score
+      end
+    end
+  end
+
+  def report_score
+    @current_user = current_user
+    respond_to do |format|
+      format.json do
+        user_id = @current_user.id
+        user = User.find(user_id)
+        render json: user.best_score
+      end
+    end
+  end
+
   def load_games
     respond_to do |format|
       format.json do
