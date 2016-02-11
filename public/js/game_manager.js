@@ -42,18 +42,22 @@ GameManager.prototype.getUser = function() {
 // Set up the game
 GameManager.prototype.setup = function(gameState) {
   var self = this;
+  var previousState;
   this.getUser().done(function(response) {
     user = response;
     if (user == undefined) {
     user = null;
+    //previousState = null;
     }
-    var previousState;
 
+    console.log(previousState)
     if (gameState) {
+
       gameState = JSON.parse(gameState);
       previousState = gameState;
     } else {
-      previousState = self.storageManager.getGameState();
+      //previousState = self.storageManager.getGameState();
+      previousState = null;
     }
   // Reload the game from a previous game if present
     if (previousState) {
