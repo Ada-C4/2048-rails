@@ -87,7 +87,9 @@ h1.title {
     opacity: 0; } }
 .scores-container {
   float: right;
-  text-align: right; }
+  text-align: right;
+  background: #bbada0;
+  border-radius: 3px; }
 
 .score-container, .best-container {
   position: relative;
