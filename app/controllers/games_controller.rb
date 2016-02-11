@@ -22,12 +22,10 @@ class GamesController < ApplicationController
 
   def report_score
     @current_user = current_user
-    respond_to do |format|
-      format.json do
-        user_id = @current_user.id
-        user = User.find(user_id)
-        render json: user.best_score
-      end
+    if @current_user
+      user_id = @current_user.id
+      user = User.find(user_id)
+      render json: user.best_score
     end
   end
 

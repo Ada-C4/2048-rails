@@ -41,6 +41,20 @@ ApiStorageManager.prototype.localStorageSupported = function () {
 
 // Best score getters/setters
 ApiStorageManager.prototype.getBestScore = function () {
+  var self = this
+  $.ajax({
+    type: "GET",
+    url:"/get_user",
+  })
+  .done(function(response) {
+    $.ajax({
+      type: "GET",
+      url:"/report_score",
+    })
+    .done(function(response) {
+      self.bestScoreKey = response;
+    });
+  });
   return this.storage.getItem(this.bestScoreKey) || 0;
 };
 
