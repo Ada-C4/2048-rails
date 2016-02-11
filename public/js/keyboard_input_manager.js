@@ -75,9 +75,9 @@ KeyboardInputManager.prototype.listen = function () {
     }
 
     //T key resumes the game
-    if (!modifiers && event.which === 84) {
-      self.resume.call(self, event);
-    }
+    // if (!modifiers && event.which === 84) {
+    //   self.resume.call(self, event);
+    // }
   });
 
   // Respond to button presses
