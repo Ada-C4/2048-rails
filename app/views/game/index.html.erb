@@ -1,7 +1,28 @@
+<link href="/style/main.css" rel="stylesheet" type="text/css">
+
 <%= render "shared/nav" %>
 
+<h1 class="leaderboard-header">Saved Games</h1>
+
 <div class="game-list">
-  <% @games.each do |game| %>
-    <%= link_to "Game", "/users/#{current_user.id}/game/#{game.id}.html" %>
-  <% end %>
+  <table>
+    <tr>
+      <th>Game</th>
+      <th>Score</th>
+      <th>Time Saved</th>
+    </tr>
+    <% @games.each do |game| %>
+      <tr>
+        <td class="game-num">
+          <%= link_to "#{game.id}", "/users/#{current_user.id}/game/#{game.id}.html" %>
+        </td>
+        <td class="game-score">
+          <%= link_to "#{game.score}", "/users/#{current_user.id}/game/#{game.id}.html" %>
+        </td>
+        <td class="game-time">
+          <%= link_to "#{game.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m/%d/%Y %I:%M%p")}", "/users/#{current_user.id}/game/#{game.id}.html" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 </div>
