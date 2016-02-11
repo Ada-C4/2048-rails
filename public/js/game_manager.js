@@ -68,12 +68,8 @@ GameManager.prototype.setup = function (loadedGame) {
   if (!loadedGame){
     previousState = this.storageManager.getGameState();  
   } else {
-    parsedLoadedGame = JSON.parse(loadedGame.replace(/(=>)+/g, ":"));
-    parsedLoadedGame.over = parsedLoadedGame.over === "true";
-    parsedLoadedGame.won = parsedLoadedGame.won === "true";
-    parsedLoadedGame.keepPlaying = parsedLoadedGame.keepPlaying === "true";
-    console.log(parsedLoadedGame, goodLoadedGame);
-    previousState = parsedLoadedGame;
+    console.log(loadedGame, goodLoadedGame);
+    previousState = JSON.parse(loadedGame);
     // previousState = loadedGame;
   }
   // Reload the game from a previous game if present
