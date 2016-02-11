@@ -6,7 +6,6 @@ class GamesController < ApplicationController
   def get_user
     @current_user = current_user
     render json: @current_user
-
   end
 
   def load_games

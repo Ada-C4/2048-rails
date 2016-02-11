@@ -31,8 +31,9 @@
     <div class="above-game">
       <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
       <a class="restart-button">New Game</a>
-      <a id="save-button">Save Game</a>
-      <a id="load-button">Load Game</a>
+      <% if @current_user %>
+        <a id="save-button">Save Game</a>
+      <% end %>
     </div>
 
     <div class="game-container">
@@ -76,7 +77,7 @@
       </div>
     </div>
 
-    
+
 
     <p class="game-explanation">
       <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>

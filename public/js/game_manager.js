@@ -32,18 +32,37 @@ GameManager.prototype.isGameTerminated = function () {
   return this.over || (this.won && !this.keepPlaying);
 };
 
-// Set up the game
-GameManager.prototype.setup = function(gameState) {
-  var user
+GameManager.prototype.getUser = function() {
+  var user;
   $.ajax({
     type: "GET",
     url:"/get_user",
   })
-
   .done(function(response) {
     user = response;
   });
+  console.log(user)
+  return user;
+}
+
+// Set up the game
+GameManager.prototype.setup = function(gameState) {
+  var user = this.getUser();
+  if (user == undefined) {
+    user = null;
+  }
+  var previousState;
+  // $.ajax({
+  //   type: "GET",
+  //   url:"/get_user",
+  // })
+  // .done(function(response) {
+  //
+  //   user = response;
+  // });
+
   if (user){
+    console.log(user)
     if (gameState) {
       gameState = JSON.parse(gameState);
       var previousState = gameState
