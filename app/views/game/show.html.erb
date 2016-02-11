@@ -1,0 +1,21 @@
+
+<header>
+  <%= render 'layouts/navbar'  %>
+</header>
+<body>
+
+  <h2>Your Games</h2>
+  <table>
+    <thead>
+      <th>Started At</th>
+      <th>Load Game</th>
+      <th>Delete</th>
+    </thead>
+    <% @games.each do |g| %>
+      <tr>
+        <td><%= g.created_at.strftime("%m/%d/%Y") %></td>
+        <td><%= link_to '🔄', '/' %></td>
+        <td><%= link_to '🚫', '/' %></td>
+      </tr>
+    <% end %>
+  </table>
