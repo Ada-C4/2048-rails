@@ -116,8 +116,9 @@ hr {
   margin-bottom: 30px; }
 
 .container {
-  width: 500px;
-  margin: 0 auto; }
+  width: 530px;
+  margin: 0 auto;
+ }
 
 @-webkit-keyframes fade-in {
   0% {
@@ -521,7 +522,7 @@ hr {
   display: inline-block;
   background: #8f7a66;
   border-radius: 3px;
-  padding: 0 20px;
+  padding: 0 10px;
   text-decoration: none;
   color: #f9f6f2;
   height: 40px;
@@ -555,7 +556,8 @@ hr {
     min-width: 40px; }
 
   .heading {
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+  }
 
   .game-intro {
     width: 55%;
