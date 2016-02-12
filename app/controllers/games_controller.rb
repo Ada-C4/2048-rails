@@ -14,7 +14,8 @@ class GamesController < ApplicationController
     game = Game.find(params[:id])
 
     if game && game.user_id == current_user.id
-      render :json => game.as_json(except: [:created_at, :updated_at]), :status => :ok,
+      render :json => game.gamestate.as_json(except: [:created_at, :updated_at]), :status => :ok
+    else
       render :json => [], :status => :no_content
     end
   end
@@ -26,7 +27,7 @@ class GamesController < ApplicationController
       score: JSON.parse(params["data"])["score"],
       over: JSON.parse(params["data"])["over"],
       won: JSON.parse(params["data"])["over"],
-      keepplaying: JSON.parse(params["data"])["keepPlaying"],
+      keepplaying: JSON.parse(params["data"])["keepPlaying"]
     )
     @game.user_id = current_user.id
 

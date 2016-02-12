@@ -36,7 +36,6 @@ GameManager.prototype.save = function () {
       {
       data: JSON.stringify(data),
     });
-    this.storageManager.clearGameState();
 };
 
 
