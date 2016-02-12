@@ -1,16 +1,16 @@
 <% if @games %>
-	<h2>Your Games</h2>
-	<table>
+	<h2 class="score-header">Your Games</h2>
+	<table class="scoreboard">
 	  <thead>
 	    <th>Last Saved</th>
-	    <th>Load Game</th>
 	    <th>Score</th>
+	    <th></th>
 	  </thead>
 	  <% @games.each do |game| %>
 	    <tr>
-	      <td><%= game.updated_at.to_formatted_s(:long) %></td>
-	      <td><a class="loadGame" data-gameID="<%= game.id %>">Reload</a></td>
+	      <td><%= game.updated_at.strftime("%m/%d/%y") %><br><%= game.updated_at.strftime("%T")%> </td>
 	      <td><%= game.score %></td>
+	      <td><a class="loadGame" data-gameID="<%= game.id %>">Reload</a></td>
 	    </tr>
 	  <% end %>
 	</table>
