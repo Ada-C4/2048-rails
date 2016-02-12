@@ -65,7 +65,7 @@ class GamesController < ApplicationController
   end
 
   def leaderboard
-    @games = Game.order(score: :desc).limit(5)
+    
   end
 
 end

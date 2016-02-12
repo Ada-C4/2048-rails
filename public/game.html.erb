@@ -19,7 +19,17 @@
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
-  <div class="container">
+<div class="container">
+  <% if @current_user %>
+    <h2>Hi, <%= @current_user.username %></h2>
+    <%= link_to "Logout", "/logout", class: "login-button" %>
+  <% else %>
+    <%= link_to "Sign in with Twitter", "/auth/twitter", class:"login-button" %>
+    <%= link_to "Sign in with Dev", "/auth/developer", class:"login-button" %>
+
+  <% end %>
+
+
     <div class="heading">
       <h1 class="title">2048</h1>
       <div class="scores-container">

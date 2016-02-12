@@ -1,16 +1,1 @@
-<% if @current_user %>
-  <h2>Hi, <%= @current_user.username %></h2>
-  <%= link_to "Logout", "/logout", class: "btn btn-nav" %>
-<% else %>
-  <%= link_to "Sign in with Twitter", "/auth/twitter", class:"btn btn-nav" %>
-  <%= link_to "Sign in with Dev", "/auth/developer", class:"btn btn-nav" %>
-
-<% end %>
-
-
-
 <%= render file: "public/game.html.erb" %>
-
-<div>
-  <ul id="game-list"></ul>
-</div>
