@@ -15,9 +15,54 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
   this.setup();
   this.loadLeaderboard();
+  this.loadSavedGames();
   window.setInterval(this.loadLeaderboard, 3000);
 
 }
+
+GameManager.prototype.loadSavedGames = function(){
+  // load saved games click handler
+  function loadGameClickHandler(){
+    var url = "/game/" + $(this).data().gameid;
+    $.ajax(url, {
+      type: "POST"
+    })
+      .done(function(data) {
+        game.setup(data.gamestate);
+      })
+      .fail(function(data){
+        console.log("FAIL", data);
+      });
+  }
+  // delete saved games click handler
+  function deleteGameClickHandler(){
+    console.log('clicked!');
+    var gameId = $(this).data().gameid,
+        url = "/game/" + gameId;
+    $.ajax(url, {
+      type: "DELETE"
+    })
+      .done(function(data){
+        console.log(data);
+        $('#'+gameId).remove();
+      })
+      .fail(function(){
+        console.log('Deleted game FAIL', data);
+      });
+    }
+  // Display the load game div
+    $.ajax('/games', {
+      type: "GET",
+    })
+      .done(function(htmlRes){
+        $('#saved-games').html(htmlRes);
+        $('.loadGame').click(loadGameClickHandler);
+        $('.deleteGame').click(deleteGameClickHandler);
+      })
+      .fail(function(){
+        console.log('show user saved games: fail', html);
+      });
+};
 
 GameManager.prototype.loadLeaderboard = function(){
   $.ajax('/topgames')
@@ -34,53 +79,13 @@ GameManager.prototype.saveGameState = function () {
   var url = "/game",
       stringGameState = JSON.stringify(this.storageManager.getGameState()),
       game = this;
-  // load saved games
-  function loadGameClickHandler(){
-    var url = "/game/" + $(this).data().gameid;
-    $.ajax(url, {
-      type: "POST"
-    })
-      .done(function(data) {
-        game.setup(data.gamestate);
-      })
-      .fail(function(data){
-        console.log("FAIL", data);
-      });
-  }
-  // delete saved games
-  function deleteGameClickHandler(){
-    console.log('clicked!');
-    var gameId = $(this).data().gameid,
-        url = "/game/" + gameId;
-    $.ajax(url, {
-      type: "DELETE"
-    })
-      .done(function(data){
-        console.log(data);
-        $('#'+gameId).remove();
-      })
-      .fail(function(){
-        console.log('Deleted game FAIL', data);
-      });
-  }
+  
   $.ajax(url, {
       type: "POST",
       data: {"gamestate" : stringGameState},
     })
       .done(function() {
-        // Display the load game div
-        $.ajax('/games', {
-          type: "GET",
-        })
-          .done(function(htmlRes){
-            $('#saved-games').html(htmlRes);
-            // bind load game handler to loadgame links
-            $('.loadGame').click(loadGameClickHandler);
-            $('.deleteGame').click(deleteGameClickHandler);
-          })
-          .fail(function(){
-            console.log('show user saved games: fail', html);
-          });
+        game.loadSavedGames();
       })
       .fail(function(data){
         console.log("Fail to save game", data);
