@@ -19,7 +19,7 @@
               <li><%= current_user.username.split(' ')[0].titlecase %>'s Games</li>
                 <% @games.each do |game| %>
                   <li class="resume-button-holder">
-                    <button class="resume-button" data-val=<%= game.id %>>Game, Score: <%= game.score %></button>
+                    <button class="resume-button" data-val=<%= game.id %>>Score: <%= game.score %></button>
                     <%= link_to "Delete",  { :controller=>"games", action: :destroy, :id => game.id}, method: :delete, data: { confirm: 'Are you sure?' } %>
                   </li>
                 <% end %>
