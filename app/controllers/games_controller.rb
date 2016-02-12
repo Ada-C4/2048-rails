@@ -14,8 +14,8 @@ class GamesController < ApplicationController
     game = Game.find(params[:id])
 
     if game && game.user_id == current_user.id
-      render :json => game.as_json(except: [:created_at, :updated_at]), status: 200
-      render :json => [], status: :no_content
+      render :json => game.as_json(except: [:created_at, :updated_at]), :status => :ok,
+      render :json => [], :status => :no_content
     end
   end
 
@@ -34,9 +34,9 @@ class GamesController < ApplicationController
     @game.save
 
     if @game.save
-      render :json => [], status: 200
+      render :json => [], :status => :ok
     else
-      render :json => [], status: :no_content
+      render :json => [], :status => :no_content
     end
   end
 
