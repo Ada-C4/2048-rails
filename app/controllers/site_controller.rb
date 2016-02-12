@@ -17,4 +17,8 @@ class SiteController < ApplicationController
   def leaderboard
     @games = Game.order(score: :desc).limit(10)
   end
+
+  def tictactoe
+    
+  end
 end

@@ -21,24 +21,17 @@ GameManager.prototype.save = function () {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     }
   });
-//to access 'this' inside of ajax/jquery stuff:
   var self = this;
-  // access API to save game somehow
-  // $(document).ready(function(){
     $.ajax({
       method: "POST",
       url: "/save",
       data: {score: self.score, board_state: JSON.stringify(self.grid), lost: "false"}
     })
       .done(function(msg) {
-        console.log("DONE!");
-        console.log(msg);
       })
       .fail(function(){
-        console.log("fail");
       })
       .always(function(){
-        console.log("always");
       });
   // });
 };
@@ -64,7 +57,6 @@ GameManager.prototype.isGameTerminated = function () {
 // Set up the game
 GameManager.prototype.setup = function () {
   var previousState = this.storageManager.getGameState();
-  console.log(previousState + "prev state");
 
   // Reload the game from a previous game if present
   if (previousState) {

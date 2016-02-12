@@ -51,37 +51,20 @@ RemoteStorageManager.prototype.setBestScore = function (score) {
 // Game state getters/setters and clearing
 RemoteStorageManager.prototype.getGameState = function () {
   var stateJSON;
-//not sure if we need commented out code:
-  // $.ajaxSetup({
-  //   headers: {
-  //     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-  //   }
-  // });
   var userID = $(".user-id").text();
   var gameID = $(".game-id").text();
   var url = "/users/" + userID + "/game/" + gameID + ".json";
-  console.log(url);
-  // $(document).ready(function(){
     $.ajax(url, {
       method: "GET",
       async: false
     })
       .done(function(data) {
-        console.log("DONE!");
-        console.log(data);
         stateJSON = data;
       })
-      .fail(function(one, two, three){
-        console.log(one);
-        console.log(two);
-        console.log(three);
-        console.log("fail");
+      .fail(function(){
       })
       .always(function(){
-        console.log("always");
       });
-  // var stateJSON = this.storage.getItem(this.gameStateKey);
-  console.log(stateJSON);
   if (stateJSON) {
     stateJSON.board_state = JSON.parse(stateJSON.board_state);
   }

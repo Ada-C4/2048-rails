@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "signout", to: "sessions#destroy"
   # get "/saved-games", to: "site#games"  #move to game#index
   get "/leaderboard", to: "site#leaderboard"
+  get "tictactoe", to: "site#tictactoe"
   post "save", to: "game#save"
   resources :users do
     resources :game do
