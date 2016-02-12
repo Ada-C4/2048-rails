@@ -7,11 +7,13 @@
 	    <th></th>
 	  </thead>
 	  <% @games.each do |game| %>
-	    <tr>
-	      <td><%= game.updated_at.strftime("%m/%d/%y") %><br><%= game.updated_at.strftime("%T")%> </td>
-	      <td><%= game.score %></td>
-	      <td><a class="loadGame" data-gameID="<%= game.id %>">Reload</a></td>
-	    </tr>
+	  	<% if !game.game_over %>
+		    <tr>
+		      <td><%= game.updated_at.strftime("%m/%d/%y") %><br><%= game.updated_at.strftime("%T")%> </td>
+		      <td><%= game.score %></td>
+		      <td><a class="loadGame" data-gameID="<%= game.id %>">Reload</a></td>
+		    </tr>
+		  <% end %>
 	  <% end %>
 	</table>
 <% end %>
