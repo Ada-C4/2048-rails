@@ -9,10 +9,16 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("save", this.save.bind(this));
-  this.inputManager.on("resume", this.resume.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
+  var self = this;
+  $(".resume-button").click(function () {
+      var id = $(this).attr("data-val");
+      self.resume(id);
+  });
+
   this.setup();
+
 }
 
 // Restart the game
@@ -34,10 +40,10 @@ GameManager.prototype.save = function () {
 };
 
 
-GameManager.prototype.resume = function () {
+
+GameManager.prototype.resume = function (id) {
   var self = this;
   console.log("clicking");
-  var id = $('.resume-button').attr("data-val");
   var url = "http://localhost:3000/games/" + id;
 
   $.ajax({

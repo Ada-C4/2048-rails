@@ -73,18 +73,12 @@ KeyboardInputManager.prototype.listen = function () {
     if (!modifiers && event.which === 83) {
       self.save.call(self, event);
     }
-
-    //T key resumes the game
-    // if (!modifiers && event.which === 84) {
-    //   self.resume.call(self, event);
-    // }
   });
 
   // Respond to button presses
   this.bindButtonPress(".retry-button", this.restart);
   this.bindButtonPress(".restart-button", this.restart);
   this.bindButtonPress(".save-button", this.save);
-  this.bindButtonPress(".resume-button", this.resume);
   this.bindButtonPress(".keep-playing-button", this.keepPlaying);
 
   // Respond to swipe events
@@ -152,11 +146,6 @@ KeyboardInputManager.prototype.restart = function (event) {
 KeyboardInputManager.prototype.save = function (event) {
   event.preventDefault();
   this.emit("save");
-};
-
-KeyboardInputManager.prototype.resume = function (event) {
-  event.preventDefault();
-  this.emit("resume");
 };
 
 KeyboardInputManager.prototype.keepPlaying = function (event) {
