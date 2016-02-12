@@ -23,5 +23,12 @@ window.requestAnimationFrame(function () {
     .fail(function(){
       console.log('show user saved games: fail', html);
     });
-
+  // load leaderboard
+  $.ajax('/topgames')
+    .done(function(htmlRes){
+      $('#leaderboard').html(htmlRes);
+    })
+    .fail(function(){
+      console.log('load leaderboard: fail', html);
+    });
 });
