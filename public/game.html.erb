@@ -94,7 +94,15 @@
       </ol>
     </div>
     <hr>
-  </div>
+
+  <% if @current_user %>
+    <h3>Resume Saved Games</h3>
+    <div>
+      <ul id="game-list"></ul>
+    </div>
+  <% end %>
+
+</div>
 
 
   <script src="js/bind_polyfill.js"></script>
