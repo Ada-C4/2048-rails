@@ -40,17 +40,4 @@ window.requestAnimationFrame(function () {
     .fail(function(){
       console.log('show user saved games: fail', html);
     });
-  // load leaderboard html into leaderboard div
-  function loadLeaderboard(){
-    $.ajax('/topgames')
-    .done(function(htmlRes){
-      $('#leaderboard').html(htmlRes);
-    })
-    .fail(function(){
-      console.log('load leaderboard: fail', html);
-    });  
-  }
-  // update leaderboard every 3 seconds
-  loadLeaderboard();
-  window.setInterval(loadLeaderboard, 3000);
 });

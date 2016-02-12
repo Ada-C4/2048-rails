@@ -14,8 +14,20 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.save = document.querySelector(".save");
 
   this.setup();
+  this.loadLeaderboard();
+  window.setInterval(this.loadLeaderboard, 3000);
 
 }
+
+GameManager.prototype.loadLeaderboard = function(){
+  $.ajax('/topgames')
+    .done(function(htmlRes){
+      $('#leaderboard').html(htmlRes);
+    })
+    .fail(function(){
+      console.log('load leaderboard: fail', html);
+    });  
+};
 
 GameManager.prototype.saveGameState = function () {
   // call the ajax for the update game
