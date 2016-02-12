@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.navbar {
+  background-color: red;
+}
+
+
 .game-list {
   margin-top: 80px;
   width: 400px;
@@ -19,4 +24,12 @@
 
 .game-time {
   width: 200px;
+}
+
+.game-num a, .game-time a, .game-score a {
+  font-size: 16px;
+}
+.game-num a:hover, .game-time a:hover, .game-score a:hover {
+  text-decoration: none;
+  color: #000;
 }

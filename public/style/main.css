@@ -76,7 +76,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #e9ece5;
+  background: #FFFFFF;
   color: #6b6861;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px; }
@@ -297,7 +297,7 @@ hr {
   margin-right: 15px;
   float: left;
   border-radius: 3px;
-  background-color: #b3c2bf;
+  background-color: #e9ece5;
 }
   .grid-cell:last-child {
     margin-right: 0; }
