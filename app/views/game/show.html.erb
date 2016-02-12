@@ -11,8 +11,8 @@
 		    <tr id="<%=game.id%>">
 		      <td><%= game.updated_at.strftime("%m/%d/%y") %><br><%= game.updated_at.strftime("%T")%> </td>
 		      <td><%= game.score %></td>
-		      <td><a class="loadGame" data-gameID="<%= game.id %>">R</a></td>
-		      <td><a class="deleteGame" data-gameID="<%= game.id %>">X</a></td>
+		      <td><a class="loadGame" data-gameID="<%= game.id %>">Load</a></td>
+		      <td><a class="deleteGame" data-gameID="<%= game.id %>">X️</a></td>
 		    </tr>
 		  <% end %>
 	  <% end %>
