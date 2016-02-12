@@ -18,7 +18,10 @@ class SiteController < ApplicationController
     @games = Game.order(score: :desc).limit(10)
   end
 
-  def tictactoe
-    
+  def tictac
+    if current_user
+      @username = current_user.name
+    end
+    render template: :tictactoe
   end
 end
