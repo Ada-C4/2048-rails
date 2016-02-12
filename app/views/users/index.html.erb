@@ -1,0 +1,19 @@
+<div class="row">
+  <h1>2048 Leaderboard</h1>
+</div>
+<div class="row">
+  <table class="table table-hover">
+    <thead>
+      <th>User</th>
+      <th>Best Score</th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= image_tag(user.image) %> <%=user.username  %></td>
+          <td><%=user.best_score  %></td>
+          <td><% end %></td>
+        </tr>
+    </tbody>
+  </table>
+</div>

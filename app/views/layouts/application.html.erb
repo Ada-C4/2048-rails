@@ -4,11 +4,53 @@
   <title>Twenty48Rails</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
+  <link href="/style/main.css" rel="stylesheet" type="text/css">
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-left">
+        <% if !@current_user.nil? %>
+          <%= link_to image_tag(@current_user.image), root_path %> Welcome <%= @current_user.username %>
+        <% end %>
+      </ul>
 
-<%= yield %>
-
+      <ul class="nav navbar-nav navbar-right">
+        <% if !@current_user.nil? %>
+          <li><%= link_to "High Scores", users_path %></li>
+          <li><%= link_to "Saved Games", gamesetups_path %></li>
+          <li><%= link_to "Log out", logout_path %></li>
+        <% else %>
+          <li><a href= "/auth/facebook/"><i class="fa fa-facebook-square"></i>
+</i>  Log in with facebook</a></li>
+        <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container alert" >
+  <% if !flash.empty? %>
+    <div class="alert alert-warning">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <% flash.each do |key, value| %><%= value %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="container">
+  <%= yield %>
+</div>
 </body>
 </html>

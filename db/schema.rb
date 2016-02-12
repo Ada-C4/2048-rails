@@ -11,6 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160209195446) do
+
+  create_table "gamesetups", force: :cascade do |t|
+    t.integer  "size"
+    t.integer  "score"
+    t.boolean  "over"
+    t.boolean  "won"
+    t.boolean  "keepPlaying"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "json_cells"
+    t.integer  "user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "username"
+    t.string   "email"
+    t.string   "uid"
+    t.string   "provider"
+    t.string   "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

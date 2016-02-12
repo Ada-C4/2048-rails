@@ -12,4 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require_tree .
+
+  $(document).on('ready', function() {
+    $(".load-button").click(function(){
+      var gId = $(this).attr("data-val");
+      window.location.href = "http://twentyforty8.herokuapp.com/?gid=" + gId;
+    });
+  });

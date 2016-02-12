@@ -1,0 +1,2 @@
+module GamesetupsHelper
+end

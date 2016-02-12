@@ -3,6 +3,8 @@ ruby '2.2.3'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'omniauth', '~> 1.3.1'
+gem 'omniauth-facebook','~>3.0.0'
 gem 'rails', '4.2.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -19,6 +21,9 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'json', '~> 1.8'
+gem 'bootstrap-sass'
+gem "font-awesome-rails"
 
 group :production do
   gem 'pg'
@@ -31,16 +36,17 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails'
+  gem 'dotenv-rails'
+
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-  gem 'pry'
+  gem 'pry-rails'
   gem 'binding_of_caller'
   gem 'better_errors'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
