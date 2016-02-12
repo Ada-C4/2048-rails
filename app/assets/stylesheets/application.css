@@ -66,11 +66,16 @@ table {
   color: #eaded1;
 }
 
- .scoreboard {
-    min-width: 225px;
- }
+#leaderboard, 
+#saved-games {
+  margin-top: 22px;
+}
 
- .score-header {
-    text-align: center;
-    margin: 0;
- }
+.scoreboard {
+  min-width: 225px;
+}
+
+.score-header {
+  text-align: center;
+  margin: 0;
+}

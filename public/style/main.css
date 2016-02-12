@@ -192,6 +192,7 @@ hr {
   100% {
     opacity: 1; } }
 .game-container {
+  margin: auto;
   margin-top: 40px;
   position: relative;
   padding: 15px;
