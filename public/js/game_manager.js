@@ -32,9 +32,12 @@ GameManager.prototype.restart = function () {
 GameManager.prototype.save = function () {
     var data = this.storageManager.getGameState();
     var url = "/games/save";
+
+    $('.successful-save').show().delay(2000).fadeOut();
+
     $.post(url,
       {
-      data: JSON.stringify(data),
+      data: JSON.stringify(data)
     });
 };
 
