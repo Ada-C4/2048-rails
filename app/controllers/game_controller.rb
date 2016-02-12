@@ -42,6 +42,10 @@ class GameController < ApplicationController
 	end
 
 	#delete an ongoing game
-
+	def destroy
+		game = Game.find(params[:id])
+		game.delete
+		render :json => [], status: :ok
+	end
 
 end

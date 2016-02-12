@@ -16,4 +16,6 @@ Rails.application.routes.draw do
 
   post '/game/:id' => "game#load", as: :load
 
+  delete '/game/:id' => "game#destroy", as: :delete
+
 end
