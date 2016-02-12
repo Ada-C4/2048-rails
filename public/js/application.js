@@ -46,7 +46,7 @@ window.requestAnimationFrame(function () {
       if (data != undefined) {
         $.ajax({
           method: "POST",
-          url: "/users/" + data.id + "/create_game",
+          url: "/create_game",
           data: { state: state}
         })
         .done(function(response) {

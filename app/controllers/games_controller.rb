@@ -56,11 +56,16 @@ class GamesController < ApplicationController
         state = params[:state]
         game = Game.new
         game.state = state
+        game.score = JSON.parse(params[:state])["score"]
         game.user_id = @current_user.id
         game.save
         render json: game
       end
     end
+  end
+
+  def leaderboard
+    @games = Game.order(score: :desc).limit(5)
   end
 
 end

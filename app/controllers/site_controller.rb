@@ -7,6 +7,7 @@ class SiteController < ApplicationController
     else
       @games = []
     end
+    @leaderboard = Game.order(score: :desc).limit(5)
   end
 
   # def games

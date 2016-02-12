@@ -84,6 +84,15 @@
     </p>
     <hr>
 
+    <div>
+      <ol id="leaderboard">
+        <% @leaderboard.each do |game| %>
+          <% if !game.score.nil? %>
+            <li><%= game.user.username %> - <%= game.score %></li>
+          <% end %>
+        <% end %>
+      </ol>
+    </div>
     <hr>
   </div>
 
