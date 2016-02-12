@@ -2,16 +2,13 @@
 <nav>
   <ul>
     <li>Welcome <%= @current_user.username %></li>
-    <li>Top Score: 200</li> <!-- make this a link to all time top scores  -->
-
     <li class="right"><%= link_to 'Logout', 'logout', method: :post %></li>
     <li class="right save">Save Game</li><!-- make this a link to save your game  -->
 
   </ul>
 <% else %>
   <ul>
-    <li><%= link_to 'Sign in with Github', '/auth/github' %></li>
-    <li class="right">Top Score: 200</li> <!-- make this a link to all time top scores  -->
+    <li class="right"><%= link_to 'Sign in with Github', '/auth/github' %></li>
   </ul>
 </nav>
 <% end %>

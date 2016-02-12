@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   get '/games' => "game#show", as: :show
 
+  get '/topgames' => "game#top", as: :topgames
+
   post '/game/:id' => "game#load", as: :load
 
 end

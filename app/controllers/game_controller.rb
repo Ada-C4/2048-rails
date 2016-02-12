@@ -6,7 +6,7 @@ class GameController < ApplicationController
     render :json => []
   end
 
-	#update the status of a game to wong or lost, or save an ongoing game
+	#update the status of a game to won or lost, or save an ongoing game
 	def update
 	  if session[:game_id]
       # update game
@@ -18,10 +18,6 @@ class GameController < ApplicationController
 	  	# add new game id to the session
 	  	session[:game_id] = game.id
 	  end
-		# gets the top 5 scoring games
-		@top_games = Game.order(score: :desc).limit(5)
-		# gets all the user's games that are not over
-		@user_games = Game.find_by(user_id: session[:user_id], game_over: false)
 	  render :json => game, status: :ok
 	end
 
@@ -38,6 +34,11 @@ class GameController < ApplicationController
   		@games = user.games
   	end
   	render :show, :layout => false
+	end
+
+	def top
+		@top_games = Game.order(score: :desc).limit(5)
+		render :top, :layout => false
 	end
 
 	#delete an ongoing game

@@ -13,13 +13,15 @@ window.requestAnimationFrame(function () {
         console.log("FAIL", data);
       });
   }
+  // load saved games
   $.ajax('/games')
-	    .done(function(htmlRes){
-	      $('#saved-games').html(htmlRes);
-	      // bind load game handler to loadgame links
-	      $('.loadGame').click(loadGameClickHandler);
-	    })
-	    .fail(function(){
-	      console.log('show user saved games: fail', html);
-	    });
+    .done(function(htmlRes){
+      $('#saved-games').html(htmlRes);
+      // bind load game handler to loadgame links
+      $('.loadGame').click(loadGameClickHandler);
+    })
+    .fail(function(){
+      console.log('show user saved games: fail', html);
+    });
+
 });
