@@ -11,5 +11,37 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require_tree .
+$(document).ready(function() {
+  // $(".past-game").click(function() {
+  //   console.log("You clicked me!");
+  // });
+  
+  // $('#save').click(function(event) {
+  //   event.preventDefault();
+  //
+  //   var url = "/save";
+  //
+  //   $.ajaxSetup({
+  //     headers: {
+  //       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  //     }
+  //   });
+  //
+  //   $.ajax(url, {
+  //     type: "POST"
+  //   })
+  //     .done(function(data) {
+  //       console.log(data);
+  //       console.log("GAME SAVED");
+  //     })
+  //     .fail(function() {
+  //       console.log("FAILED TO SAVE");
+  //     })
+  //     .always(function() {
+  //       console.log("I always do this");
+  //     });
+  // });
+});

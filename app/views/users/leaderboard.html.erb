@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="heading">
+    <h1 class="title">Leaderboard</h1>
+  </div>
+  <!-- <h2>Top Scoring Games</h2> -->
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Date</td>
+        <td colspan="2">Player</td>
+        <td>Score</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @best_games.each do |game| %>
+        <tr>
+          <td><%= game.updated_at.strftime("%m/%d/%Y") %></td>
+          <td><%= image_tag game.user.image, size: "30x30" %></td>
+          <td><%= game.user.name %></td>
+          <td><%= game.score ? game.score : "0" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- <h2>Top Scoring Players</h2> -->
+
+</div>

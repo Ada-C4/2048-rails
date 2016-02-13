@@ -1,7 +1,7 @@
-function GameManager(size, InputManager, Actuator, StorageManager) {
+function GameManager(size, InputManager, Actuator, StorageManager, game) {
   this.size           = size; // Size of the grid
   this.inputManager   = new InputManager;
-  this.storageManager = new StorageManager;
+  this.storageManager = new StorageManager(game);
   this.actuator       = new Actuator;
 
   this.startTiles     = 2;
@@ -15,14 +15,24 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
 // Restart the game
 GameManager.prototype.restart = function () {
-  this.storageManager.clearGameState();
-  this.actuator.continueGame(); // Clear the game won/lost message
-  this.setup();
+  var self = this;
+  this.storageManager.clearGameState()
+    .done(function(newGame) {
+      console.log(newGame);
+      self.storageManager.updating = false;
+      if (newGame) {
+        self.storageManager.gameID = newGame.id;
+      }
+      self.actuator.continueGame(); // Clear the game won/lost message
+      self.setup();
+    });
 };
 
 // Keep playing after winning (allows going over 2048)
 GameManager.prototype.keepPlaying = function () {
   this.keepPlaying = true;
+  this.storageManager.updating = false;
+  this.storageManager.setGameState(this.serialize());
   this.actuator.continueGame(); // Clear the game won/lost message
 };
 
@@ -33,29 +43,33 @@ GameManager.prototype.isGameTerminated = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
-  var previousState = this.storageManager.getGameState();
+  var self = this;
+  this.storageManager.getGameState()
+    .done(function(previousState) {
+    console.log(previousState);
+    console.log("GAME STATE GOT");
+    // Reload the game from a previous game if present
+    if (previousState) {
+      self.grid        = new Grid(previousState.grid.size,
+                                  previousState.grid.cells); // Reload grid
+      self.score       = previousState.score;
+      self.over        = previousState.over;
+      self.won         = previousState.won;
+      self.keepPlaying = previousState.keepPlaying;
+    } else {
+      self.grid        = new Grid(self.size);
+      self.score       = 0;
+      self.over        = false;
+      self.won         = false;
+      self.keepPlaying = false;
 
-  // Reload the game from a previous game if present
-  if (previousState) {
-    this.grid        = new Grid(previousState.grid.size,
-                                previousState.grid.cells); // Reload grid
-    this.score       = previousState.score;
-    this.over        = previousState.over;
-    this.won         = previousState.won;
-    this.keepPlaying = previousState.keepPlaying;
-  } else {
-    this.grid        = new Grid(this.size);
-    this.score       = 0;
-    this.over        = false;
-    this.won         = false;
-    this.keepPlaying = false;
+      // Add the initial tiles
+      self.addStartTiles();
+    }
 
-    // Add the initial tiles
-    this.addStartTiles();
-  }
-
-  // Update the actuator
-  this.actuate();
+    // Update the actuator
+    self.actuate();
+  });
 };
 
 // Set up the initial tiles to start the game with
@@ -77,25 +91,48 @@ GameManager.prototype.addRandomTile = function () {
 
 // Sends the updated grid to the actuator
 GameManager.prototype.actuate = function () {
-  if (this.storageManager.getBestScore() < this.score) {
-    this.storageManager.setBestScore(this.score);
-  }
+  var self = this;
+
+  // if (this.storageManager.getBestScore() < this.score) {
+  //   this.storageManager.setBestScore(this.score);
+  // }
 
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {
-    this.storageManager.clearGameState();
-  } else {
+    var gameOver = true;
     this.storageManager.setGameState(this.serialize());
+    this.storageManager.clearGameState(gameOver);
+  } else {
+    if (!this.storageManager.updating && this.storageManager.gameID) {
+      this.storageManager.updating = true;
+      this.storageManager.setGameState(this.serialize()).done(function(status) {
+        console.log(status);
+        setTimeout(function() { self.storageManager.updating = false;}, 10000);
+      });
+    }
   }
 
-  this.actuator.actuate(this.grid, {
-    score:      this.score,
-    over:       this.over,
-    won:        this.won,
-    bestScore:  this.storageManager.getBestScore(),
-    terminated: this.isGameTerminated()
-  });
+  if (this.storageManager.gameID) {
+    this.storageManager.getBestScore().done(function(score) {
+      var best = self.score > score.bestScore ? self.score : score.bestScore;
 
+      self.actuator.actuate(self.grid, {
+        score:      self.score,
+        over:       self.over,
+        won:        self.won,
+        bestScore:  best,
+        terminated: self.isGameTerminated()
+      });
+    });
+  } else {
+    self.actuator.actuate(self.grid, {
+      score:      self.score,
+      over:       self.over,
+      won:        self.won,
+      bestScore:  self.score,
+      terminated: self.isGameTerminated()
+    });
+  }
 };
 
 // Represent the current game as an object
