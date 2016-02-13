@@ -1,0 +1,28 @@
+<div class="games-index">
+  <h1>My Games</h1>
+  <% if @games.length == 0 %>
+    <h3>You have no current games.</h3>
+  <% else %>
+    <table class="table table-striped table-hover">
+      <tbody>
+        <tr>
+          <th>First Played</th>
+          <th>Last Played</th>
+          <th>Score</th>
+          <th>Resume</th>
+          <th>Delete</th>
+        </tr>
+        <% @games.each do |game| %>
+        <tr>
+          <td><%= game.created_at.localtime.strftime("%b. %d, %Y at %l:%M %p") %></td>
+          <td><%= game.updated_at.localtime.strftime("%b. %d, %Y at %l:%M %p") %></td>
+          <td><%= game.score %></td>
+          <td><%= link_to "▷", root_path, class: "resume-link", data: {id: game.id}%></td>
+          <td><%= link_to "✕",  { :controller=>"games", action: :destroy, :id => game.id}, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+<script src="js/local_storage_manager.js"></script>

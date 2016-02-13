@@ -1,0 +1,26 @@
+
+<div class="top-scores">
+  <h1>Current Top Scores</h1>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th>Rank</th>
+          <th>User</th>
+          <th>Score</th>
+        </tr>
+        <% rank = 1 %>
+        <% @top_games.each do |top| %>
+        <tr>
+          <td><%= rank %></td>
+          <td><%= image_tag top.user.image_url %><%= top.user.name %></td>
+          <td><%= top.score %></td>
+          <% rank += 1 %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

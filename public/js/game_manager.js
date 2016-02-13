@@ -33,29 +33,35 @@ GameManager.prototype.isGameTerminated = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
-  var previousState = this.storageManager.getGameState();
+  var self = this;
+  var previousState = self.storageManager.getGameState()
+  .done(function(previousState){
+    console.log("GET DONE!");
+    // stateJSON = data.game_state;
+    if (previousState) {
+      console.log(previousState)
+      self.storageManager.saveID(previousState.id);
+      var current_game = JSON.parse(previousState.game_state);
+      self.grid        = new Grid(current_game.grid.size,
+                                  current_game.grid.cells); // Reload grid
+      self.score       = current_game.score;
+      self.over        = current_game.over;
+      self.won         = current_game.won;
+      self.keepPlaying = current_game.keepPlaying;
+    } else {
+      self.grid        = new Grid(self.size);
+      self.score       = 0;
+      self.over        = false;
+      self.won         = false;
+      self.keepPlaying = false;
 
-  // Reload the game from a previous game if present
-  if (previousState) {
-    this.grid        = new Grid(previousState.grid.size,
-                                previousState.grid.cells); // Reload grid
-    this.score       = previousState.score;
-    this.over        = previousState.over;
-    this.won         = previousState.won;
-    this.keepPlaying = previousState.keepPlaying;
-  } else {
-    this.grid        = new Grid(this.size);
-    this.score       = 0;
-    this.over        = false;
-    this.won         = false;
-    this.keepPlaying = false;
+      // Add the initial tiles
+      self.addStartTiles();
+    }
 
-    // Add the initial tiles
-    this.addStartTiles();
-  }
-
-  // Update the actuator
-  this.actuate();
+    // Update the actuator
+    self.actuate();
+  })
 };
 
 // Set up the initial tiles to start the game with
@@ -80,6 +86,12 @@ GameManager.prototype.actuate = function () {
   if (this.storageManager.getBestScore() < this.score) {
     this.storageManager.setBestScore(this.score);
   }
+  
+  // $.ajax("/users/"+id, {type: "GET"}).done(function(data){
+  //   if (data["user"]["best_score"] < this.score) {
+  //     $.post
+  //   }
+  // });
 
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {

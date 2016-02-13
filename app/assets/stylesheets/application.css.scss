@@ -13,3 +13,45 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+ .score-container {
+   height: 300px;
+ }
+
+.login {
+  margin-top: 200px;
+}
+
+.leaders {
+  margin-top: 200px;
+ }
+
+ .navbar-brand {
+   float: right;
+ }
+
+ .games-index{
+   padding-top: 60px;
+   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+   color: #373E66;
+ }
+
+ .welcome {
+   margin-top: 12px;
+   margin-right: 15px;
+ }
+
+ .leaderboard {
+  color: #373E66;
+ }
+
+ .top-scores {
+   margin-top: 100px;
+   color: #373E66;
+ }
+
+.alert {
+  margin-top: 75px;
+}
