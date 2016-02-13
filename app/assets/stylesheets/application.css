@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+a {
+  text-decoration: none;
+}
+
+.restart-button:hover {
+   color: #fff; 
+   text-decoration: none;
+}

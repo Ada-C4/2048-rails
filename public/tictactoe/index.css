@@ -1,0 +1,35 @@
+.square{
+    width:100px;
+    height:100px;
+    text-align: center;
+    font-size: 36px;
+}
+
+.v{
+    border-left:1px solid #000;
+    border-right:1px solid #000;
+}
+
+.h{
+    border-top:1px solid #000;
+    border-bottom:1px solid #000;
+}
+
+
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.header {
+  font-size: 48px;
+  text-align: center;
+  font-family: Didot;
+  font-weight: bold;
+  color: #47d1d1;
+}
+
+#board {
+  margin: auto;
+  text-align: center;
+  width: 320px;
+}

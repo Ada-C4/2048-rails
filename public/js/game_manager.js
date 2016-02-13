@@ -7,11 +7,34 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.startTiles     = 2;
 
   this.inputManager.on("move", this.move.bind(this));
+  this.inputManager.on("save", this.save.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
   this.setup();
 }
+
+// Save the game
+GameManager.prototype.save = function () {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  var self = this;
+    $.ajax({
+      method: "POST",
+      url: "/save",
+      data: {score: self.score, board_state: JSON.stringify(self.grid), lost: "false"}
+    })
+      .done(function(msg) {
+      })
+      .fail(function(){
+      })
+      .always(function(){
+      });
+  // });
+};
 
 // Restart the game
 GameManager.prototype.restart = function () {
@@ -37,8 +60,8 @@ GameManager.prototype.setup = function () {
 
   // Reload the game from a previous game if present
   if (previousState) {
-    this.grid        = new Grid(previousState.grid.size,
-                                previousState.grid.cells); // Reload grid
+    this.grid        = new Grid(previousState.board_state.size,
+                                previousState.board_state.cells); // Reload grid
     this.score       = previousState.score;
     this.over        = previousState.over;
     this.won         = previousState.won;

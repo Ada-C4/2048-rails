@@ -1,14 +1,89 @@
 @import url(fonts/clear-sans.css);
+
+.user-id {
+  display: none;
+}
+
+.game-id {
+  display: none;
+}
+
+.login {
+  margin: auto;
+  width: 700px;
+  height: 100px;
+  background-image: url(http://media.giphy.com/media/138i1MiNVi9P0Y/giphy.gif);
+}
+
+.sign-in {
+  font-size: 1.6em;
+  padding: 0 200px;
+}
+
+.sign-in:hover {
+  text-decoration: none;
+}
+
+.welcome {
+  width: 540px;
+  margin: 30px auto;
+  color: #23527c;
+  font-weight: bold;
+  font-size: 4em;
+}
+
+.twenty {
+  color: #c0dfd9;
+  margin: 0;
+  display: inline;
+}
+
+.save-button {
+  background: #6b6861;
+  border-radius: 3px;
+  padding: 0 20px;
+  text-decoration: none;
+  color: #f9f6f2;
+  height: 40px;
+  line-height: 42px;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  float: right;
+}
+
+.save-button:focus, .save-button:hover {
+  color: white;
+  text-decoration: none;
+}
+
+#bs-example-navbar-collapse-1 {
+  background-color: #c0dfd9;
+}
+
+.container-fluid {
+  background-color: #c0dfd9;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: white;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+  color: #e9ece5;
+}
+
 html, body {
   margin: 0;
   padding: 0;
-  background: #faf8ef;
-  color: #776e65;
+  background: #FFFFFF;
+  color: #6b6861;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px; }
 
 body {
-  margin: 80px 0; }
+  margin: 80px 0;
+ }
 
 .heading:after {
   content: "";
@@ -48,12 +123,14 @@ h1.title {
     opacity: 0; } }
 .scores-container {
   float: right;
-  text-align: right; }
+  text-align: right;
+  background: #6b6861;
+  border-radius: 3px; }
 
 .score-container, .best-container {
   position: relative;
   display: inline-block;
-  background: #bbada0;
+  background: #6b6861;
   padding: 15px 25px;
   font-size: 25px;
   height: 25px;
@@ -103,7 +180,7 @@ p {
 a {
   color: #776e65;
   font-weight: bold;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
   cursor: pointer; }
 
 strong.important {
@@ -149,7 +226,7 @@ hr {
   -ms-user-select: none;
   -ms-touch-action: none;
   touch-action: none;
-  background: #bbada0;
+  background: #6b6861;
   border-radius: 6px;
   width: 500px;
   height: 500px;
@@ -220,7 +297,8 @@ hr {
   margin-right: 15px;
   float: left;
   border-radius: 3px;
-  background: rgba(238, 228, 218, 0.35); }
+  background-color: #e9ece5;
+}
   .grid-cell:last-child {
     margin-right: 0; }
 
@@ -519,7 +597,7 @@ hr {
 
 .restart-button {
   display: inline-block;
-  background: #8f7a66;
+  background: #6b6861;
   border-radius: 3px;
   padding: 0 20px;
   text-decoration: none;

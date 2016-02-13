@@ -1,1 +1,12 @@
-<%= render file: "public/game.html" %>
+<link href="/style/main.css" rel="stylesheet" type="text/css">
+<div>
+  <% if current_user %>
+    <%= render "shared/nav" %>
+    <%= render file: "public/game.html" %>
+  <% else %>
+    <h1 class="welcome"><div class="twenty">2048:</div> Ada-Style</h1>
+    <div class="login">
+      <%= link_to "Sign in with Facebook", "/auth/facebook", class: "sign-in" %>
+    </div>
+  <% end %>
+</div>

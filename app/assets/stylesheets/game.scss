@@ -1,0 +1,29 @@
+// Place all the styles related to the game controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.leaderboard {
+  width: 450px;
+  margin: 80px auto;
+  padding-left: 50px;
+}
+
+.leaderboard-header {
+  width: 220px;
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rank {
+  width: 100px;
+}
+
+.score {
+  width: 100px;
+}
+
+.name {
+  width: 200px;
+}
