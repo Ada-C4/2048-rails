@@ -1,0 +1,31 @@
+<div class="table-container">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>Leaderboard</h1>
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>
+            Rank
+          </th>
+          <th>
+            User
+          </th>
+          <th>
+            Score
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% count = 1 %> 
+        <% @games.each do |game| %>
+          <tr>
+            <td><%= count %></td>
+            <td><%= game.user.username %></td>
+            <td><%= game.score %></td>
+          </tr>
+          <% count += 1%>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

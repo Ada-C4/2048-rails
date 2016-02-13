@@ -10,6 +10,34 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
+
  */
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+.dropdown-menu {
+  text-align: center;
+}
+
+.resume-button {
+  min-width: 100px;
+}
+
+.resume-button-holder {
+  text-align: center;
+}
+
+.table-container {
+  padding-top: 60px;
+}
+
+ .user-info-holder {
+   max-width: 500px;
+   background-color: #eee4da;
+ }
+
+ .successful-save {
+  display: none;
+  font-size: 30px;
+  text-align: center;
+ }

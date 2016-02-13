@@ -46,7 +46,9 @@ KeyboardInputManager.prototype.listen = function () {
     87: 0, // W
     68: 1, // D
     83: 2, // S
-    65: 3  // A
+    65: 3, // A
+    84: 0  // T
+
   };
 
   // Respond to direction keys
@@ -66,70 +68,84 @@ KeyboardInputManager.prototype.listen = function () {
     if (!modifiers && event.which === 82) {
       self.restart.call(self, event);
     }
+
+    //S key saves the game
+    if (!modifiers && event.which === 83) {
+      self.save.call(self, event);
+    }
   });
 
   // Respond to button presses
   this.bindButtonPress(".retry-button", this.restart);
   this.bindButtonPress(".restart-button", this.restart);
+  this.bindButtonPress(".save-button", this.save);
   this.bindButtonPress(".keep-playing-button", this.keepPlaying);
 
   // Respond to swipe events
   var touchStartClientX, touchStartClientY;
   var gameContainer = document.getElementsByClassName("game-container")[0];
 
-  gameContainer.addEventListener(this.eventTouchstart, function (event) {
-    if ((!window.navigator.msPointerEnabled && event.touches.length > 1) ||
-        event.targetTouches.length > 1) {
-      return; // Ignore if touching with more than 1 finger
-    }
+  if (gameContainer != null) {
+    gameContainer.addEventListener(this.eventTouchstart, function (event) {
+      if ((!window.navigator.msPointerEnabled && event.touches.length > 1) ||
+          event.targetTouches.length > 1) {
+        return; // Ignore if touching with more than 1 finger
+      }
 
-    if (window.navigator.msPointerEnabled) {
-      touchStartClientX = event.pageX;
-      touchStartClientY = event.pageY;
-    } else {
-      touchStartClientX = event.touches[0].clientX;
-      touchStartClientY = event.touches[0].clientY;
-    }
+      if (window.navigator.msPointerEnabled) {
+        touchStartClientX = event.pageX;
+        touchStartClientY = event.pageY;
+      } else {
+        touchStartClientX = event.touches[0].clientX;
+        touchStartClientY = event.touches[0].clientY;
+      }
 
-    event.preventDefault();
-  });
+      event.preventDefault();
+    });
 
-  gameContainer.addEventListener(this.eventTouchmove, function (event) {
-    event.preventDefault();
-  });
 
-  gameContainer.addEventListener(this.eventTouchend, function (event) {
-    if ((!window.navigator.msPointerEnabled && event.touches.length > 0) ||
-        event.targetTouches.length > 0) {
-      return; // Ignore if still touching with one or more fingers
-    }
+    gameContainer.addEventListener(this.eventTouchmove, function (event) {
+      event.preventDefault();
+    });
 
-    var touchEndClientX, touchEndClientY;
+    gameContainer.addEventListener(this.eventTouchend, function (event) {
+      if ((!window.navigator.msPointerEnabled && event.touches.length > 0) ||
+          event.targetTouches.length > 0) {
+        return; // Ignore if still touching with one or more fingers
+      }
 
-    if (window.navigator.msPointerEnabled) {
-      touchEndClientX = event.pageX;
-      touchEndClientY = event.pageY;
-    } else {
-      touchEndClientX = event.changedTouches[0].clientX;
-      touchEndClientY = event.changedTouches[0].clientY;
-    }
+      var touchEndClientX, touchEndClientY;
 
-    var dx = touchEndClientX - touchStartClientX;
-    var absDx = Math.abs(dx);
+      if (window.navigator.msPointerEnabled) {
+        touchEndClientX = event.pageX;
+        touchEndClientY = event.pageY;
+      } else {
+        touchEndClientX = event.changedTouches[0].clientX;
+        touchEndClientY = event.changedTouches[0].clientY;
+      }
 
-    var dy = touchEndClientY - touchStartClientY;
-    var absDy = Math.abs(dy);
+      var dx = touchEndClientX - touchStartClientX;
+      var absDx = Math.abs(dx);
 
-    if (Math.max(absDx, absDy) > 10) {
-      // (right : left) : (down : up)
-      self.emit("move", absDx > absDy ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0));
-    }
-  });
+      var dy = touchEndClientY - touchStartClientY;
+      var absDy = Math.abs(dy);
+
+      if (Math.max(absDx, absDy) > 10) {
+        // (right : left) : (down : up)
+        self.emit("move", absDx > absDy ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0));
+      }
+    });
+  }
 };
 
 KeyboardInputManager.prototype.restart = function (event) {
   event.preventDefault();
   this.emit("restart");
+};
+
+KeyboardInputManager.prototype.save = function (event) {
+  event.preventDefault();
+  this.emit("save");
 };
 
 KeyboardInputManager.prototype.keepPlaying = function (event) {
@@ -139,6 +155,8 @@ KeyboardInputManager.prototype.keepPlaying = function (event) {
 
 KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
   var button = document.querySelector(selector);
-  button.addEventListener("click", fn.bind(this));
-  button.addEventListener(this.eventTouchend, fn.bind(this));
+  if (button != null){
+    button.addEventListener("click", fn.bind(this));
+    button.addEventListener(this.eventTouchend, fn.bind(this));
+  };
 };

@@ -8,9 +8,17 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
+  this.inputManager.on("save", this.save.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
+  var self = this;
+  $(".resume-button").click(function () {
+      var id = $(this).attr("data-val");
+      self.resume(id);
+  });
+
   this.setup();
+
 }
 
 // Restart the game
@@ -18,6 +26,65 @@ GameManager.prototype.restart = function () {
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
   this.setup();
+};
+
+//method added by AD
+GameManager.prototype.save = function () {
+    var data = this.storageManager.getGameState();
+    var url = "/games/save";
+
+    $('.successful-save').show().delay(2000).fadeOut();
+
+    $.post(url,
+      {
+      data: JSON.stringify(data)
+    });
+};
+
+
+
+GameManager.prototype.resume = function (id) {
+  var self = this;
+  console.log("clicking");
+  var url = "http://localhost:3000/games/" + id;
+
+  $.ajax({
+      method: "POST",
+      url: url,
+    })
+      .done(function(url) {
+        console.log("success");
+        console.log(url);
+          self.storageManager.clearGameState();
+          self.actuator.continueGame(); // Clear the game won/lost message
+          self.loadGame(url)
+      })
+      .fail(function() {
+        console.log("failure");
+      });
+};
+
+//written by AD- this will do the same thing as restarting only send
+GameManager.prototype.loadGame = function (game) {
+  var previousState = game;
+
+  if (previousState) {
+    this.grid        = new Grid(Number(previousState.grid.size), previousState.grid.cells);
+    this.score       = previousState.score;
+    this.over        = previousState.over;
+    this.won         = previousState.won;
+    this.keepPlaying = previousState.keepPlaying;
+  } else {
+    this.grid        = new Grid(this.size);
+    this.score       = 0;
+    this.over        = false;
+    this.won         = false;
+    this.keepPlaying = false;
+
+    this.addStartTiles();
+  }
+  this.actuate();
+
 };
 
 // Keep playing after winning (allows going over 2048)
@@ -32,8 +99,14 @@ GameManager.prototype.isGameTerminated = function () {
 };
 
 // Set up the game
-GameManager.prototype.setup = function () {
-  var previousState = this.storageManager.getGameState();
+//edited by AD to be able to take input possibly
+GameManager.prototype.setup = function (savedGame) {
+  var previousState;
+  if (savedGame) {
+    previousState = savedGame;
+  } else {
+    previousState = this.storageManager.getGameState();
+  };
 
   // Reload the game from a previous game if present
   if (previousState) {
