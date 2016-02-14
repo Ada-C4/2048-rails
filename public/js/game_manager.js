@@ -9,9 +9,94 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
+  this.inputManager.on("saveGameState", this.saveGameState.bind(this));
+
+  this.save = document.querySelector(".save");
 
   this.setup();
+  this.loadLeaderboard();
+  this.loadSavedGames();
+  window.setInterval(this.loadLeaderboard, 3000);
+
 }
+
+GameManager.prototype.loadSavedGames = function(){
+  // load saved games click handler
+  function loadGameClickHandler(){
+    var url = "/game/" + $(this).data().gameid;
+    $.ajax(url, {
+      type: "POST"
+    })
+      .done(function(data) {
+        game.setup(data.gamestate);
+      })
+      .fail(function(data){
+        console.log("FAIL", data);
+      });
+  }
+  // delete saved games click handler
+  function deleteGameClickHandler(){
+    console.log('clicked!');
+    var gameId = $(this).data().gameid,
+        url = "/game/" + gameId;
+    $.ajax(url, {
+      type: "DELETE"
+    })
+      .done(function(data){
+        console.log(data);
+        $('#'+gameId).remove();
+      })
+      .fail(function(){
+        console.log('Deleted game FAIL', data);
+      });
+    }
+  // Display the load game div
+    $.ajax('/games', {
+      type: "GET",
+    })
+      .done(function(htmlRes){
+        $('#saved-games').html(htmlRes);
+        $('.loadGame').click(loadGameClickHandler);
+        $('.deleteGame').click(deleteGameClickHandler);
+      })
+      .fail(function(){
+        console.log('show user saved games: fail', html);
+      });
+};
+
+GameManager.prototype.loadLeaderboard = function(){
+  $.ajax('/topgames')
+    .done(function(htmlRes){
+      $('#leaderboard').html(htmlRes);
+    })
+    .fail(function(){
+      console.log('load leaderboard: fail', html);
+    });  
+};
+
+GameManager.prototype.saveGameState = function () {
+  // call the ajax for the update game
+  var url = "/game",
+      stringGameState = JSON.stringify(this.storageManager.getGameState()),
+      game = this;
+  
+  $.ajax(url, {
+      type: "POST",
+      data: {"gamestate" : stringGameState},
+    })
+      .done(function() {
+        game.loadSavedGames();
+      })
+      .fail(function(data){
+        console.log("Fail to save game", data);
+      });
+      var newDiv = document.createElement("div");
+      console.log("this: " + typeof(this));
+      newDiv.classList.add("score-addition");
+      newDiv.textContent = "saved!";
+
+      this.save.appendChild(newDiv);
+};
 
 // Restart the game
 GameManager.prototype.restart = function () {
@@ -28,15 +113,25 @@ GameManager.prototype.keepPlaying = function () {
 
 // Return true if the game is lost, or has won and the user hasn't kept playing
 GameManager.prototype.isGameTerminated = function () {
+  if(this.over){
+    // call the route that saves the score and set the status to lost/not playing
+  } else if (this.won) {
+    // call the route that saves the score and leave the status as playing
+  }
   return this.over || (this.won && !this.keepPlaying);
 };
 
 // Set up the game
-GameManager.prototype.setup = function () {
-  var previousState = this.storageManager.getGameState();
-
+GameManager.prototype.setup = function (loadedGame) {
+  var previousState;
+  if (!loadedGame){
+    previousState = this.storageManager.getGameState();
+  } else {
+    previousState = JSON.parse(loadedGame);
+    // previousState = loadedGame;
+  }
   // Reload the game from a previous game if present
-  if (previousState) {
+   if (previousState) {
     this.grid        = new Grid(previousState.grid.size,
                                 previousState.grid.cells); // Reload grid
     this.score       = previousState.score;
@@ -44,12 +139,13 @@ GameManager.prototype.setup = function () {
     this.won         = previousState.won;
     this.keepPlaying = previousState.keepPlaying;
   } else {
+    // go to the new game route
     this.grid        = new Grid(this.size);
     this.score       = 0;
     this.over        = false;
     this.won         = false;
     this.keepPlaying = false;
-
+    this.gameId      = 0;
     // Add the initial tiles
     this.addStartTiles();
   }

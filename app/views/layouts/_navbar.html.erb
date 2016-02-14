@@ -1,0 +1,14 @@
+<% if @current_user %>
+<nav>
+  <ul>
+    <li>Welcome <%= @current_user.username %></li>
+    <li class="right"><%= link_to 'Logout', 'logout', method: :post %></li>
+    <li class="right save">Save Game</li>
+    <div>
+  </ul>
+<% else %>
+  <ul>
+    <li class="right"><%= link_to 'Sign in with Github', '/auth/github' %></li>
+  </ul>
+</nav>
+<% end %>

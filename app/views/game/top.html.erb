@@ -1,0 +1,13 @@
+<h2 class="score-header">Leaderboard</h2>
+<table class="scoreboard">
+  <thead>
+    <th>Player</th>
+    <th>Score</th>
+  </thead>
+<% @top_games.each do |game| %>
+	<tr>
+    <td><%= game.user.username %></td>
+    <td><%= game.score %></td>
+  </tr>
+<% end %>
+</table>

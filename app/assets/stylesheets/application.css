@@ -13,3 +13,69 @@
  *= require_tree .
  *= require_self
  */
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #4c463f;
+}
+
+li a {
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+.right {
+  float: right;
+}
+
+li {
+  float: left;
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li:hover {
+  background-color: #111;
+}
+
+body {
+  margin: 0 !important;
+}
+
+th,
+td {
+  text-align: center;
+}
+
+table a {
+  color: #eaded1;
+}
+
+table {
+  background: #776e65;
+  border-collapse: collapse;
+  margin: auto;
+  border-radius: 10px;  
+  color: #eaded1;
+}
+
+#leaderboard, 
+#saved-games {
+  margin-top: 22px;
+}
+
+.scoreboard {
+  min-width: 225px;
+}
+
+.score-header {
+  text-align: center;
+  margin: 0;
+}

@@ -73,14 +73,14 @@ h1.title {
     line-height: 13px;
     text-align: center;
     color: #eee4da; }
-  .score-container .score-addition, .best-container .score-addition {
+  .score-addition {
     position: absolute;
     right: 30px;
     color: red;
     font-size: 25px;
     line-height: 25px;
     font-weight: bold;
-    color: rgba(119, 110, 101, 0.9);
+    color: #F59563;
     z-index: 100;
     -webkit-animation: move-up 600ms ease-in;
     -moz-animation: move-up 600ms ease-in;
@@ -116,9 +116,63 @@ hr {
   margin-bottom: 30px; }
 
 .container {
-  width: 500px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+}
 
+.row {
+  width: 100%;
+  display: flex;
+}
+
+.col-1 {
+  width: 8.33%;
+}
+
+.col-2 {
+  width: 16.66%;
+}
+
+.col-3 {
+  width: 25%;
+}
+
+.col-4 {
+  width: 33.33%;
+}
+
+.col-5 {
+  width: 41.66%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+.col-7 {
+  width: 58.33%;
+}
+
+.col-8 {
+  width: 66.66%;
+}
+
+.col-9 {
+  width: 75%;
+}
+
+.col-10 {
+  width: 83.33%;
+}
+
+.col-11 {
+  width: 91.66%;
+}
+
+.col-12 {
+  width: 100%;
+}
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0; }
@@ -138,6 +192,7 @@ hr {
   100% {
     opacity: 1; } }
 .game-container {
+  margin: auto;
   margin-top: 40px;
   position: relative;
   padding: 15px;
