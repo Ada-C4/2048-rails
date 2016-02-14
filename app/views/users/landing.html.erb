@@ -1,0 +1,15 @@
+<link href="style/main.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<div class="container">
+
+  <% if @current_user %>
+    <h2>Hi, <%= @current_user.username %></h2>
+    <%= link_to "Logout", "/logout", class: "btn btn-nav" %>
+  <% else %>
+    <%= link_to "Sign in with Twitter", "/auth/twitter", class:"btn btn-nav" %>
+    <%= link_to "Sign in with Dev", "/auth/developer", class:"btn btn-nav" %>
+
+  <% end %>
+
+</div>

@@ -1,0 +1,122 @@
+window.fakeStorage = {
+  _data: {},
+
+  setItem: function (id, val) {
+    return this._data[id] = String(val);
+  },
+
+  getItem: function (id) {
+    return this._data.hasOwnProperty(id) ? this._data[id] : undefined;
+  },
+
+  removeItem: function (id) {
+    return delete this._data[id];
+  },
+
+  clear: function () {
+    return this._data = {};
+  }
+};
+
+function ApiStorageManager() {
+  this.bestScoreKey     = "bestScore";
+  this.gameStateKey     = "gameState";
+
+  var supported = this.localStorageSupported();
+  this.storage = supported ? window.localStorage : window.fakeStorage;
+}
+
+ApiStorageManager.prototype.localStorageSupported = function () {
+  var testKey = "test";
+  var storage = window.localStorage;
+
+  try {
+    storage.setItem(testKey, "1");
+    storage.removeItem(testKey);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+// Best score getters/setters
+ApiStorageManager.prototype.getBestScore = function () {
+  var self = this
+  $.ajax({
+    type: "GET",
+    url:"/get_user",
+  })
+  .done(function(response) {
+    $.ajax({
+      type: "GET",
+      url:"/report_score",
+    })
+    .done(function(response) {
+      self.bestScoreKey = response;
+    });
+  });
+  return this.storage.getItem(this.bestScoreKey) || 0;
+};
+
+ApiStorageManager.prototype.setBestScore = function (score) {
+  var self = this;
+  self.storage.setItem(self.bestScoreKey, score);
+  $.ajax({
+    type: "GET",
+    url:"/get_user",
+  })
+  .done(function(response) {
+    $.ajax({
+      type: "POST",
+      url:"/set_score",
+      data: { bestScore: score }
+    })
+    .done(function(response) {
+    });
+  });
+};
+
+// Game state getters/setters and clearing
+ApiStorageManager.prototype.getGameState = function () {
+  var stateJSON = this.storage.getItem(this.gameStateKey);
+
+  //url = "/create_game";
+  // console.log("Hitting the right part of code");
+  // $.ajax({
+  //   method: "GET",
+  //   url: "/games/get_user",
+  // })
+  // .done(function(data) {
+  //   console.log(data);
+  //   $.ajax({
+  //     method: "POST",
+  //     url: "/users/" + data.id + "/create_game",
+  //     data: { state: stateJSON}
+  //   })
+  //   .done(function(response) {
+  //     console.log(response);
+  //   });
+  // });
+
+  //console.log(user)
+
+  // $.ajax({
+    // method: "POST",
+    // url: "/users/" + user + "/create_game",
+    // data: { state: stateJSON}
+  // })
+  // .done(function() {
+    // console.log("Hey!");
+  // });
+//
+  // var stateJSON = this.storage.getItem(this.gameStateKey);
+  return stateJSON ? JSON.parse(stateJSON) : null;
+};
+
+ApiStorageManager.prototype.setGameState = function (gameState) {
+  this.storage.setItem(this.gameStateKey, JSON.stringify(gameState));
+};
+
+ApiStorageManager.prototype.clearGameState = function () {
+  this.storage.removeItem(this.gameStateKey);
+};
